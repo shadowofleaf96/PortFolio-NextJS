@@ -22,6 +22,7 @@ Live demo : [live demo](https://new-portfolio-z3hb.onrender.com/)
 - **About Me**: A brief introduction to who I am, my experiences.
 - **Hero Section**: A good presentation of my portfolio.
 - **Contact Information**: Easy access to get in touch with me.
+- **Light Theme**: Showcase in Dark or Light Area
 
 ## Getting Started
 
