@@ -83,10 +83,6 @@ const ContactMe = () => {
     }
   };
 
-  const handleCloseAlert = () => {
-    setAlert(null);
-  };
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setAlert(null);

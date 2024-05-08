@@ -55,7 +55,7 @@ function AboutMe() {
       data-aos-easing="ease-in-out"
       data-aos-once="false"
       id="about-me"
-      className="text-black p-8 md:p-16 rounded-lg flex items-center justify-center scroll-mt-64 md:scroll-mt-28"
+      className="text-black p-4 md:p-8 rounded-lg flex items-center justify-center scroll-mt-64 md:scroll-mt-28"
     >
       <div className="max-w-screen-md text-center">
         <Typography
@@ -98,7 +98,7 @@ function AboutMe() {
                   const isLastItem = index === timelineData.length - 1;
                   return (
                     <TimelineItem
-                      key={item.id} 
+                      key={item.id}
                       className="h-28 hover:scale-105 transition-transform"
                     >
                       {!isLastItem && (

@@ -97,7 +97,7 @@ const Skills = () => {
       data-aos-duration="1200"
       data-aos-easing="ease-in-out"
       data-aos-once="false"
-      className="text-black dark:text-white rounded-5 p-8 md:p-16 scroll-mt-64 md:scroll-mt-28"
+      className="text-black dark:text-white rounded-5 p-4 md:p-8 scroll-mt-64 md:scroll-mt-28"
     >
       <div className="w-full">
         <Typography
