@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",
-                zIndex: 1000, // Ensure it is above other content
+                zIndex: 1000,
               }}
               alt="Loading..."
             />
