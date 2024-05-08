@@ -139,7 +139,7 @@ function Hero() {
               sizes="100vw"
               src="/images/profile-pic.webp"
               alt="MK"
-              priority={false}
+              priority={true}
               className="mb-8 w-full h-auto object-cover rounded-full"
               onClick={esterOnClick}
             />
@@ -159,7 +159,7 @@ function Hero() {
             Hi, I'm Mohammed Kotbi
           </Typography>
 
-          <div className="mb-8 text-second dark:text-gray-200 text-md md:text-lg font-poppins">
+          <div className="mb-8 text-second text-md md:text-lg font-poppins">
             <Typewriter
               options={{
                 strings: [

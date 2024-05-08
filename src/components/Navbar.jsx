@@ -15,7 +15,10 @@ export function NavBar() {
   const [openNav, setOpenNav] = useState(false);
   const [activeNavItem, setActiveNavItem] = useState("Home");
 
-  const pages = useMemo(() => ["Home", "About Me", "Skills", "Projects", "Contact Me"], []);
+  const pages = useMemo(
+    () => ["Home", "About Me", "Skills", "Projects", "Contact Me"],
+    []
+  );
   const [darkMode, setDarkMode] = useState(true);
 
   const toggleDarkMode = () => {
@@ -130,7 +133,7 @@ export function NavBar() {
                 <Icon
                   key="light-icon"
                   className="text-yellow-600 text-3xl mr-2"
-                  icon="line-md:sun-rising-filled-loop"
+                  icon="line-md:moon-filled-to-sunny-filled-loop-transition"
                   height={36}
                   width={36}
                 />

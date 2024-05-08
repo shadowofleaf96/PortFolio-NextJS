@@ -112,6 +112,7 @@ function ProjectCard({ project }) {
           sizes="100vw"
           src={project.image}
           alt={project.title}
+          priority={true}
           className="rounded-t-lg object-cover w-full h-64 md:h-64"
         />
         <Typography className="text-lg text-black dark:text-white flex justify-center font-semibold mx-3 my-6 font-poppins">
