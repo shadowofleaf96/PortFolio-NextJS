@@ -11,7 +11,6 @@ Live demo : [live demo](https://portfolio-nextjs-dszv.onrender.com/)
 
 - [Features](#features)
 - [Getting Started](#getting-started)
-- [Usage](#usage)
 - [Contributing](#contributing)
 
 ## Features
