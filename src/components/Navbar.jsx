@@ -102,7 +102,7 @@ export function NavBar() {
   return (
     <Navbar
       id="navbar"
-      className="sticky top-0 z-10 h-max max-w-full rounded-lg px-4 py-2 xl:px-8 xl:py-4 bg-white dark:bg-black dark:border-black"
+      className="sticky top-0 z-10 h-max max-w-full mx-auto bg-white dark:bg-black dark:border-black"
     >
       <div className="flex items-center justify-between text-black dark:text-white">
         <a href="#" className="cursor-pointer">
