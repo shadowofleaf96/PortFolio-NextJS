@@ -193,7 +193,7 @@ function Projects() {
       data-aos-easing="ease-in-out"
       data-aos-once="false"
       id="projects"
-      className="flex flex-col items-center p-4 md:p-8 scroll-mt-64 md:scroll-mt-28"
+      className="flex flex-col items-center p-4 md:p-5 scroll-mt-64 md:scroll-mt-28"
     >
       <div className="w-full text-center">
         <Typography

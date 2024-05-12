@@ -24,7 +24,7 @@ function App() {
 
   return (
     <ThemeProvider>
-      <div className="bg-[#F5F5F5] dark:bg-[#111827] m-0 mx-auto px-12">
+      <div className="bg-[#F5F5F5] dark:bg-[#111827] m-0 mx-auto px-6 md:px-12 ">
         <NavBar />
         <Hero />
         <Separator />

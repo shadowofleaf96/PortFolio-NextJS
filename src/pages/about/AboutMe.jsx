@@ -66,7 +66,7 @@ function AboutMe() {
           About Me
         </Typography>
 
-        <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center mt-12">
+        <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center mt-6">
           <Tilt
             className="flex justify-center"
             tiltMaxAngleY={10}
@@ -86,7 +86,7 @@ function AboutMe() {
           <div className="mr-4 ml-4 md:mr-16 text-left max-w-full md:max-w-sm md:min-h-full flex-grow mb-4">
             <Typography
               color="black"
-              className=" mb-4 mt-4 font-normal text-sm md:text-base font-poppins dark:text-white"
+              className="mb-4 mt-4 p-4 font-normal text-sm md:text-base font-poppins dark:text-white"
             >
               Enthusiastic IT and Full Stack MERN developer, eager to know more,
               passionate about web and IT development, seeking hands-on

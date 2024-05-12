@@ -55,8 +55,8 @@ export function NavBar() {
         if (section) {
           const rect = section.getBoundingClientRect();
           const isVisible =
-            rect.top <= window.innerHeight / 2 - navbarHeight / 2 &&
-            rect.bottom >= window.innerHeight / 2 - navbarHeight / 2;
+            rect.top <= window.innerHeight / 2.5 - navbarHeight / 2.5 &&
+            rect.bottom >= window.innerHeight / 2.5 - navbarHeight / 2.5;
 
           if (isVisible && !foundActive) {
             setActiveNavItem(page);
@@ -102,7 +102,7 @@ export function NavBar() {
   return (
     <Navbar
       id="navbar"
-      className="sticky top-0 z-10 h-max max-w-full rounded-lg px-4 py-2 lg:px-8 lg:py-4 bg-white dark:bg-black dark:border-black"
+      className="sticky top-0 z-10 h-max max-w-full rounded-lg px-4 py-2 xl:px-8 xl:py-4 bg-white dark:bg-black dark:border-black"
     >
       <div className="flex items-center justify-between text-black dark:text-white">
         <a href="#" className="cursor-pointer">

@@ -131,7 +131,7 @@ function Hero() {
         options={options}
       />
       <div className="flex flex-col md:flex-row items-center justify-center w-full">
-        <div className="flex w-full mr:0 md:mr-16 md:w-2/3 lg:w-4/12 xl:w-1/3 items-center justify-center mx-auto">
+        <div className="flex w-full mr:0 md:mr-16 sm:w-1/2 md:w-2/3 lg:w-4/12 xl:w-1/3 items-center justify-center mx-auto">
           <Tilt tiltMaxAngleY={3} tiltMaxAngleX={3}>
             <Image
               width="0"
