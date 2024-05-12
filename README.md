@@ -5,13 +5,12 @@ Welcome to my portfolio, a simple, minimalist and elegant showcase of my work an
 ![Portfolio Mockup](https://github.com/shadowofleaf96/React-Vite-PortFolio/blob/master/mockup.png?raw=true)
 
 
-Live demo : [live demo](https://new-portfolio-z3hb.onrender.com/)
+Live demo : [live demo](https://portfolio-nextjs-dszv.onrender.com/)
 
 ## Table of Contents
 
 - [Features](#features)
 - [Getting Started](#getting-started)
-- [Usage](#usage)
 - [Contributing](#contributing)
 
 ## Features
@@ -39,13 +38,13 @@ Make sure you have the following installed on your machine:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/shadowofleaf96/React-Vite-PortFolio.git
+   git clone https://github.com/shadowofleaf96/PortFolio-NextJS.git
    ```
 
 2. Change into the project directory:
 
    ```bash
-   cd React-Vite-PortFolio
+   cd PortFolio-NextJS
    ```
 
 3. Install dependencies:
@@ -59,9 +58,6 @@ Make sure you have the following installed on your machine:
 
    ```bash
    npm run dev
-   open another terminal window
-   cd server
-   npx nodemon
    ```
 
 ## Contributing
