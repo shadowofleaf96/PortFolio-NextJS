@@ -86,13 +86,13 @@ function AboutMe() {
           <div className="mr-4 ml-4 md:mr-16 text-left max-w-full md:max-w-sm md:min-h-full flex-grow mb-4">
             <Typography
               color="black"
-              className="mb-4 mt-4 p-4 font-normal text-sm md:text-base font-poppins dark:text-white"
+              className="mb-4 mt-4 p-2 font-normal text-sm md:text-base font-poppins dark:text-white"
             >
               Enthusiastic IT and Full Stack MERN developer, eager to know more,
               passionate about web and IT development, seeking hands-on
               experience to grow as a skilled developer.
             </Typography>
-            <div className="w-[22rem]">
+            <div className="w-[20rem] md:w-[22rem]">
               <Timeline>
                 {timelineData.map((item, index) => {
                   const isLastItem = index === timelineData.length - 1;
@@ -120,7 +120,7 @@ function AboutMe() {
                           <Typography
                             variant="h6"
                             color="blue-gray"
-                            className="font-base text-sm font-poppins cursor-pointer dark:text-white"
+                            className="font-base text-xs md:text-sm font-poppins cursor-pointer dark:text-white"
                           >
                             {item.companyName}
                           </Typography>
