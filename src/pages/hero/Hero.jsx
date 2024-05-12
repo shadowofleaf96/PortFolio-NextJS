@@ -123,7 +123,7 @@ function Hero() {
   return (
     <div
       id="home"
-      className="flex flex-col items-center justify-center h-screen -mt-8"
+      className="flex flex-col items-center justify-center h-screen -mt-16 md:-mt-8"
     >
       <Particles
         id="tsparticles"
