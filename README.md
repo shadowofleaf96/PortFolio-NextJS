@@ -5,7 +5,7 @@ Welcome to my portfolio, a simple, minimalist and elegant showcase of my work an
 ![Portfolio Mockup](https://github.com/shadowofleaf96/PortFolio-NextJS/blob/main/mockup.png?raw=true)
 
 
-Live demo : [live demo](https://portfolio-nextjs-dszv.onrender.com/)
+Live demo : [live demo](https://port-folio-next-js-gamma.vercel.app/)
 
 ## Table of Contents
 
