@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 
-
 export default function RootLayout({ children }) {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -31,6 +30,8 @@ export default function RootLayout({ children }) {
                 left: "50%",
                 transform: "translate(-50%, -50%)",
                 zIndex: 1000,
+                width: "10%",
+                height: "20%", 
               }}
               alt="Loading..."
             />
