@@ -12,7 +12,6 @@ import Image from "next/image";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Tilt from "react-parallax-tilt";
-import { Icon } from "@iconify/react";
 
 function AboutMe() {
   useEffect(() => {
@@ -57,7 +56,7 @@ function AboutMe() {
       id="about-me"
       className="text-black p-4 md:p-8 rounded-lg flex items-center justify-center scroll-mt-64 md:scroll-mt-28"
     >
-      <div className="max-w-screen-md text-center">
+      <div className="max-w-screen-lg text-center">
         <Typography
           variant="h1"
           color="black"
@@ -77,9 +76,9 @@ function AboutMe() {
               height="0"
               sizes="100vw"
               alt="MK"
-              src="/images/about-profile-pic.webp"
+              src="/images/Profile Skecth Art.webp"
               priority={true}
-              className="w-2/3 md:w-1/3 md:hidden h-auto object-cover rounded-full mb-4"
+              className="w-full md:w-1/3 md:hidden h-auto object-cover rounded-full mb-4"
             />
           </Tilt>
 
@@ -140,15 +139,17 @@ function AboutMe() {
             </div>
           </div>
           <Tilt tiltMaxAngleY={10} tiltMaxAngleX={10} gyroscope={true}>
-            <Image
-              width="0"
-              height="0"
-              sizes="100vw"
-              priority={true}
-              alt="MK"
-              src="/images/about-profile-pic.webp"
-              className="h-auto w-auto object-cover rounded-full hidden md:block"
-            />
+            <div>
+              <Image
+                priority={true}
+                alt="MK"
+                width="0"
+                height="0"
+                sizes="100vw"
+                src="/images/Profile Skecth Art.webp"
+                className="relative h-full w-full object-cover hidden md:block"
+              />
+            </div>
           </Tilt>
         </div>
       </div>

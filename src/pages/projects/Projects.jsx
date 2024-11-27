@@ -16,6 +16,34 @@ import { Icon } from "@iconify/react";
 const projectsData = [
   {
     id: 1,
+    image: "/images/tactiques_project.webp",
+    title: "Tactiques Website",
+    description:
+      "Welcome to Tactiques, a dynamic Next.js-powered website showcasing Institut Tactiques Formation Privée (ITFP). Discover a premier private institute dedicated to providing expert coaching and training programs, empowering students with the skills and knowledge they need for a successful future.",
+    liveDemoLink: "https://tactiques-next-js.vercel.app/",
+    sourceCodeLink: "https://github.com/shadowofleaf96/Tactiques-NextJS",
+  },
+  {
+    id: 2,
+    image: "/images/JoTiYa Project.webp",
+    title: "JoTiYa Shopify Admin Panel",
+    description:
+      "Welcome to JoTiYa, an open-source MERN (MongoDB, Express.js, React.js, Node.js) stack for a Shopify Admin Panel project. JoTiYa is designed to provide a foundation for building a robust and scalable Admin Panel for your Shopify Store.",
+    liveDemoLink: "https://shopify-admin-panel.onrender.com/",
+    sourceCodeLink: "https://github.com/shadowofleaf96/Shopify-Admin-Panel",
+  },
+  {
+    id: 3,
+    image: "/images/GreenVille.webp",
+    title: "GreenVille Ecommerce Shop Project",
+    description:
+      "Welcome to GreenVille, an open-source MERN (MongoDB, Express.js, React.js, Node.js) stack ecommerce shop project. GreenVille is designed to provide a foundation for building a robust and scalable online bio Organic store.",
+    liveDemoLink: "https://greenville-frontend.onrender.com/",
+    sourceCodeLink:
+      "https://github.com/shadowofleaf96/GreenVille-Ecommerce_Final_Project",
+  },
+  {
+    id: 4,
     image: "/images/up2career.webp",
     title: "Up2Career Landing Page",
     description:
@@ -24,7 +52,7 @@ const projectsData = [
     sourceCodeLink: "https://up2career.com/",
   },
   {
-    id: 2,
+    id: 5,
     image: "/images/imusic.webp",
     title: "IMusic Android App",
     description:
@@ -35,7 +63,7 @@ const projectsData = [
       "https://xdaforums.com/t/4-2-imusic-a-elegant-music-player.4115007/",
   },
   {
-    id: 3,
+    id: 6,
     image: "/images/OldPortfolio.webp",
     title: "My Old PortFolio",
     description:
@@ -44,7 +72,7 @@ const projectsData = [
     sourceCodeLink: "https://github.com/shadowofleaf96/PortFolio",
   },
   {
-    id: 4,
+    id: 7,
     image: "/images/pcpartproject.webp",
     title: "PC Parts Ecommerce Shop",
     description:
@@ -53,7 +81,7 @@ const projectsData = [
     sourceCodeLink: "https://github.com/shadowofleaf96/EcommerceWebsite",
   },
   {
-    id: 5,
+    id: 8,
     image: "/images/Blog.webp",
     title: "TechBlog",
     description:
@@ -62,17 +90,7 @@ const projectsData = [
     sourceCodeLink: "https://github.com/shadowofleaf96/BlogWebsite",
   },
   {
-    id: 6,
-    image: "/images/GreenVille.webp",
-    title: "GreenVille Ecommerce Shop Project",
-    description:
-      "Welcome to GreenVille, an open-source MERN (MongoDB, Express.js, React.js, Node.js) stack ecommerce shop project. GreenVille is designed to provide a foundation for building a robust and scalable online bio Organic store.",
-    liveDemoLink: "https://greenville-frontend.onrender.com/",
-    sourceCodeLink:
-      "https://github.com/shadowofleaf96/GreenVille-Ecommerce_Final_Project",
-  },
-  {
-    id: 7,
+    id: 9,
     image: "/images/tadkir.webp",
     title: "Tadkir WPF App",
     description:
@@ -84,6 +102,21 @@ const projectsData = [
 
 function ProjectCard({ project }) {
   const [isHovered, setHovered] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  useEffect(() => {
+    // Check if the screen size is mobile on mount and resize
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768); // Mobile breakpoint (768px)
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => {
+      window.removeEventListener("resize", checkScreenSize);
+    };
+  }, []);
 
   const blurProps = useSpring({
     filter: isHovered ? "blur(5px)" : "blur(0px)",
@@ -95,7 +128,10 @@ function ProjectCard({ project }) {
   });
 
   const handleButtonClick = (link) => {
-    window.open(link, "_blank");
+    // Allow button click only if visible
+    if (isHovered || isMobile) {
+      window.open(link, "_blank");
+    }
   };
 
   return (
@@ -147,17 +183,17 @@ function ProjectCard({ project }) {
           </p>
         </CardBody>
 
-        <div className="flex mt-3">
+        <div className="flex flex-wrap justify-center gap-2 md:flex-nowrap pb-2">
           <Button
             variant="text"
             onClick={() => handleButtonClick(project.liveDemoLink)}
-            className="mr-4 flex items-center rounded-full text-second font-medium dark:hover:bg-gray-50"
+            className="flex items-center rounded-full text-second font-medium dark:hover:bg-gray-50"
           >
             <Icon
               icon="material-symbols-light:play-circle"
-              height={52}
-              width={52}
-              style={{ marginRight: "5px" }}
+              height={24}
+              width={24}
+              className="mr-2 h-8 w-8 md:h-12 md:w-12"
             />
             <span>Live Demo</span>
           </Button>
@@ -168,9 +204,9 @@ function ProjectCard({ project }) {
           >
             <Icon
               icon="mdi:github"
-              height={52}
-              width={52}
-              style={{ marginRight: "5px" }}
+              height={24}
+              width={24}
+              className="mr-2 h-8 w-8 md:h-12 md:w-12"
             />
             <span>Source Code</span>
           </Button>
