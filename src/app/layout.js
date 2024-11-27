@@ -30,8 +30,10 @@ export default function RootLayout({ children }) {
                 left: "50%",
                 transform: "translate(-50%, -50%)",
                 zIndex: 1000,
-                width: "10%",
-                height: "20%", 
+                width: "20vw",
+                height: "auto", 
+                maxWidth: "200px",
+                maxHeight: "200px", 
               }}
               alt="Loading..."
             />
