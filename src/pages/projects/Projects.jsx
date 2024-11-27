@@ -173,12 +173,12 @@ function ProjectCard({ project }) {
         }}
         className="bg-white dark:bg-black"
       >
-        <Typography className="text-xl text-black dark:text-white font-semibold mb-2 font-poppins">
+        <Typography className="text-xl text-center text-black dark:text-white font-semibold mb-2 font-poppins">
           {project.title}
         </Typography>
 
         <CardBody>
-          <p className="text-sm text-black dark:text-white">
+          <p className="text-xs sm:text-sm text-black dark:text-white">
             {project.description}
           </p>
         </CardBody>
@@ -193,9 +193,9 @@ function ProjectCard({ project }) {
               icon="material-symbols-light:play-circle"
               height={24}
               width={24}
-              className="mr-2 h-8 w-8 md:h-12 md:w-12"
+              className="mr-2 sm:w-8 sm:h-8 md:h-12 md:w-12"
             />
-            <span>Live Demo</span>
+            <span className="text-xs sm:text-sm md:text-md hidden md:block">Live Demo</span>
           </Button>
           <Button
             variant="text"
@@ -206,9 +206,9 @@ function ProjectCard({ project }) {
               icon="mdi:github"
               height={24}
               width={24}
-              className="mr-2 h-8 w-8 md:h-12 md:w-12"
+              className="mr-2 sm:w-8 sm:h-8 md:h-12 md:w-12"
             />
-            <span>Source Code</span>
+            <span className="text-xs sm:text-sm md:text-md hidden md:block">Source Code</span>
           </Button>
         </div>
       </animated.div>
