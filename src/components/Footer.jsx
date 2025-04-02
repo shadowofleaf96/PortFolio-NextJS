@@ -65,7 +65,7 @@ function Footer() {
           size="lg"
           className="text-center mt-2 font-normal font-poppins dark:text-white"
         >
-          © 2024 Shadow Of Leaf. All Rights Reserved.
+          © 2025 Shadow Of Leaf. All Rights Reserved.
         </Typography>
       </div>
     </footer>
