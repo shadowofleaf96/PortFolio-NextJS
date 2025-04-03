@@ -16,7 +16,7 @@ import { Icon } from "@iconify/react";
 const projectsData = [
   {
     id: 1,
-    image: "/images/GreenVille.webp",
+    image: "/images/GreenVille.png",
     title: "GreenVille Bio-organic eCommerce store",
     description:
     "Welcome to GreenVille, an open-source MERN (MongoDB, Express.js, React.js, Node.js) stack ecommerce shop project. GreenVille is designed to provide a foundation for building a robust and scalable online bio Organic store.",
