@@ -31,7 +31,8 @@ const projectsData = [
     "Welcome to Tactiques, a dynamic Next.js-powered website showcasing Institut Tactiques Formation Privée (ITFP). Discover a premier private institute dedicated to providing expert coaching and training programs, empowering students with the skills and knowledge they need for a successful future.",
     liveDemoLink: "https://tactiques-next-js.vercel.app/",
     sourceCodeLink: "https://github.com/shadowofleaf96/Tactiques-NextJS",
-  {
+   },
+   {
     id: 3,
     image: "/images/JoTiYa Project.webp",
     title: "JoTiYa Shopify Admin Panel",
