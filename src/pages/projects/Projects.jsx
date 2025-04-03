@@ -16,31 +16,29 @@ import { Icon } from "@iconify/react";
 const projectsData = [
   {
     id: 1,
-    image: "/images/tactiques_project.webp",
-    title: "Tactiques Website",
+    image: "/images/GreenVille.webp",
+    title: "GreenVille Bio-organic eCommerce store",
     description:
-      "Welcome to Tactiques, a dynamic Next.js-powered website showcasing Institut Tactiques Formation Privée (ITFP). Discover a premier private institute dedicated to providing expert coaching and training programs, empowering students with the skills and knowledge they need for a successful future.",
-    liveDemoLink: "https://tactiques-next-js.vercel.app/",
-    sourceCodeLink: "https://github.com/shadowofleaf96/Tactiques-NextJS",
+    "Welcome to GreenVille, an open-source MERN (MongoDB, Express.js, React.js, Node.js) stack ecommerce shop project. GreenVille is designed to provide a foundation for building a robust and scalable online bio Organic store.",
+    liveDemoLink: "https://greenville-frontend.vercel.app/",
+    sourceCodeLink: "https://github.com/shadowofleaf96/GreenVille",
   },
   {
     id: 2,
+    image: "/images/tactiques_project.webp",
+    title: "Tactiques Website",
+    description:
+    "Welcome to Tactiques, a dynamic Next.js-powered website showcasing Institut Tactiques Formation Privée (ITFP). Discover a premier private institute dedicated to providing expert coaching and training programs, empowering students with the skills and knowledge they need for a successful future.",
+    liveDemoLink: "https://tactiques-next-js.vercel.app/",
+    sourceCodeLink: "https://github.com/shadowofleaf96/Tactiques-NextJS",
+  {
+    id: 3,
     image: "/images/JoTiYa Project.webp",
     title: "JoTiYa Shopify Admin Panel",
     description:
       "Welcome to JoTiYa, an open-source MERN (MongoDB, Express.js, React.js, Node.js) stack for a Shopify Admin Panel project. JoTiYa is designed to provide a foundation for building a robust and scalable Admin Panel for your Shopify Store.",
     liveDemoLink: "https://shopify-admin-panel.onrender.com/",
     sourceCodeLink: "https://github.com/shadowofleaf96/Shopify-Admin-Panel",
-  },
-  {
-    id: 3,
-    image: "/images/GreenVille.webp",
-    title: "GreenVille Ecommerce Shop Project",
-    description:
-      "Welcome to GreenVille, an open-source MERN (MongoDB, Express.js, React.js, Node.js) stack ecommerce shop project. GreenVille is designed to provide a foundation for building a robust and scalable online bio Organic store.",
-    liveDemoLink: "https://greenville-frontend.onrender.com/",
-    sourceCodeLink:
-      "https://github.com/shadowofleaf96/GreenVille-Ecommerce_Final_Project",
   },
   {
     id: 4,
