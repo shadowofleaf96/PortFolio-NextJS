@@ -21,24 +21,30 @@ function AboutMe() {
   const timelineData = [
     {
       id: 1,
-      companyName: "Up2Career - Full Stack Intern Developer",
-      logoSrc: "/images/small_logo.webp",
-      date: "01/2024 - Current",
+      companyName: "FREELANCE - Web Developer using WordPress",
+      logoSrc: "/images/freelance-icon.webp",
+      date: "11/2024 - Current",
     },
     {
       id: 2,
+      companyName: "Up2Career - Full Stack Intern Developer",
+      logoSrc: "/images/small_logo.webp",
+      date: "01/2024 - 07/2024",
+    },
+    {
+      id: 3,
       companyName: "ARK-X TALENT FACTORY - Full Stack MERN Intern Developer",
       logoSrc: "/images/arkx_logo.webp",
       date: "08/2023 - 12/2023",
     },
     {
-      id: 3,
+      id: 4,
       companyName: "FREELANCE - Mobile and Windows Junior Developer",
       logoSrc: "/images/freelance-icon.webp",
       date: "01/2020 - 05/2022",
     },
     {
-      id: 4,
+      id: 5,
       companyName: "LEONI BOUZNIKA - Crimping Maintenance Technician",
       logoSrc: "/images/leoni-ag-logo.webp",
       date: "05/2019 - 05/2021",
@@ -82,7 +88,7 @@ function AboutMe() {
             />
           </Tilt>
 
-          <div className="mr-4 ml-4 md:mr-16 text-left max-w-full md:max-w-sm md:min-h-full flex-grow mb-4">
+          <div className="mx-auto text-center md:text-left max-w-full md:max-w-sm md:min-h-full flex-grow mb-4">
             <Typography
               color="black"
               className="mb-4 mt-4 p-2 font-normal text-sm md:text-base font-poppins dark:text-white"
@@ -91,7 +97,7 @@ function AboutMe() {
               passionate about web and IT development, seeking hands-on
               experience to grow as a skilled developer.
             </Typography>
-            <div className="w-[20rem] md:w-[22rem]">
+            <div className="w-[20rem] md:w-[22rem] mx-auto md:mx-0">
               <Timeline>
                 {timelineData.map((item, index) => {
                   const isLastItem = index === timelineData.length - 1;
@@ -103,7 +109,7 @@ function AboutMe() {
                       {!isLastItem && (
                         <TimelineConnector className="!w-[78px] cursor-pointer" />
                       )}
-                      <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white dark:bg-black dar py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
+                      <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white dark:bg-black py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
                         <TimelineIcon
                           className="p-3 dark:bg-blue-gray-200"
                           variant="ghost"
@@ -138,6 +144,7 @@ function AboutMe() {
               </Timeline>
             </div>
           </div>
+
           <Tilt tiltMaxAngleY={10} tiltMaxAngleX={10} gyroscope={true}>
             <div>
               <Image

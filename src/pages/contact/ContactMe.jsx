@@ -70,9 +70,9 @@ const ContactMe = () => {
             className="flex flex-col items-center mt-12"
             noValidate
           >
-            <div className="md:w-4/5 lg:w-3/4 xl:w-2/3">
+            <div className="w-full md:w-3/4 lg:w-3/4 xl:w-2/3">
               <div className="flex flex-col md:flex-row">
-                <div className="w-full md:w-1/2 md:mr-2">
+                <div className="w-full">
                   <input
                     id="firstName"
                     {...register("firstName")}
@@ -141,7 +141,7 @@ const ContactMe = () => {
               type="submit"
               disabled={isSubmitting}
               ripple={true}
-              className="font-poppins mx-2 flex items-center justify-center w-full md:w-4/5 lg:w-3/4 xl:w-2/3 mt-4 bg-second text-white border-2 border-second hover:bg-green-500 hover:border-green-500 transition duration-300 mb-4 md:mr-2 dark:bg-second dark:hover:bg-green-500 dark:text-gray-200 dark:hover:border-green-500"
+              className="font-poppins mx-2 flex items-center justify-center w-full md:w-3/4 lg:w-3/4 xl:w-2/3 mt-4 bg-second text-white border-2 border-second hover:bg-green-500 hover:border-green-500 transition duration-300 mb-4 md:mr-2 dark:bg-second dark:hover:bg-green-500 dark:text-gray-200 dark:hover:border-green-500"
             >
               {isSubmitting ? "Sending..." : "Send Message"}
             </Button>

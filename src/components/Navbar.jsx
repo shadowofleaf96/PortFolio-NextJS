@@ -38,7 +38,7 @@ export function NavBar() {
     });
 
     return () => {
-      window.removeEventListener("resize", () => {});
+      window.removeEventListener("resize", () => { });
     };
   }, []);
 
@@ -88,9 +88,8 @@ export function NavBar() {
         <a
           key={page}
           href={`#${page.toLowerCase().replace(/\s+/g, "-")}`}
-          className={`flex items-center transition-colors ${
-            activeNavItem === page ? "text-second" : ""
-          }`}
+          className={`flex items-center transition-colors ${activeNavItem === page ? "text-second" : ""
+            }`}
           onClick={() => handleNavClick(page)}
         >
           {page}
@@ -109,7 +108,6 @@ export function NavBar() {
           <div className="flex items-center">
             <Avatar
               alt="MK"
-              withBorder={true}
               src="../../../images/mrtech_white.webp"
               className="p-0.5"
               style={{ objectFit: "cover" }}
@@ -150,9 +148,8 @@ export function NavBar() {
                   onChange={handleToggle}
                 />
                 <div
-                  className={`block relative bg-gray-300 w-14 h-8 p-1 rounded-full before:absolute before:bg-white before:w-6 before:h-6 before:p-1 before:rounded-full before:transition-all before:duration-500 before:left-1 peer-checked:before:left-7 ${
-                    darkMode ? "peer-checked:before:bg-black" : ""
-                  }`}
+                  className={`block relative bg-gray-300 w-14 h-8 p-1 rounded-full before:absolute before:bg-white before:w-6 before:h-6 before:p-1 before:rounded-full before:transition-all before:duration-500 before:left-1 peer-checked:before:left-7 ${darkMode ? "peer-checked:before:bg-black" : ""
+                    }`}
                 ></div>
               </label>
             </div>

@@ -82,6 +82,11 @@ const Skills = () => {
       icon: <Icon icon="devicon:csharp" width="4em" height="4em" />,
       link: "https://docs.microsoft.com/en-us/dotnet/csharp/",
     },
+    {
+      name: "WordPress",
+      icon: <Icon icon="devicon:wordpress" width="4em" height="4em" />,
+      link: "https://wordpress.com",
+    },
   ];
 
   useEffect(() => {

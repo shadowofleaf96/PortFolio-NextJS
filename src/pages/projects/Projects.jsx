@@ -16,10 +16,10 @@ import { Icon } from "@iconify/react";
 const projectsData = [
   {
     id: 1,
-    image: "/images/GreenVille.png",
+    image: "/images/GreenVille.webp",
     title: "GreenVille Bio-organic eCommerce store",
     description:
-    "Welcome to GreenVille, an open-source MERN (MongoDB, Express.js, React.js, Node.js) stack ecommerce shop project. GreenVille is designed to provide a foundation for building a robust and scalable online bio Organic store.",
+      "Welcome to GreenVille, an open-source MERN (MongoDB, Express.js, React.js, Node.js) stack ecommerce shop project. GreenVille is designed to provide a foundation for building a robust and scalable online bio Organic store.",
     liveDemoLink: "https://greenville-frontend.vercel.app/",
     sourceCodeLink: "https://github.com/shadowofleaf96/GreenVille",
   },
@@ -28,12 +28,30 @@ const projectsData = [
     image: "/images/tactiques_project.webp",
     title: "Tactiques Website",
     description:
-    "Welcome to Tactiques, a dynamic Next.js-powered website showcasing Institut Tactiques Formation Privée (ITFP). Discover a premier private institute dedicated to providing expert coaching and training programs, empowering students with the skills and knowledge they need for a successful future.",
+      "Welcome to Tactiques, a dynamic Next.js-powered website showcasing Institut Tactiques Formation Privée (ITFP). Discover a premier private institute dedicated to providing expert coaching and training programs, empowering students with the skills and knowledge they need for a successful future.",
     liveDemoLink: "https://tactiques-next-js.vercel.app/",
     sourceCodeLink: "https://github.com/shadowofleaf96/Tactiques-NextJS",
-   },
-   {
+  },
+  {
     id: 3,
+    image: "/images/plazatoro.webp",
+    title: "Labo PlazaToro",
+    description:
+      "Welcome to Plazatoro, a clean and professional WordPress-powered landing page built to highlight Laboratoire Plazatoro, an independent medical biology laboratory. This site presents the lab’s commitment to personalized care and collaboration with healthcare professionals, nurses, and patients, with a focus on trust, precision, and user satisfaction.",
+    liveDemoLink: "https://laboplazatoro.com/",
+    sourceCodeLink: "https://laboplazatoro.com/",
+  },
+  {
+    id: 4,
+    image: "/images/1001candles.webp",
+    title: "1001 Candles",
+    description:
+      "Welcome to 1001 Candles, a refined, WordPress-powered landing page designed for a luxury artisanal candle brand. This elegant website highlights the brand’s passion for fine wax craftsmanship and high-end home fragrances. From showcasing premium ingredients to offering personalized creations, the site delivers a seamless, luxurious browsing experience that reflects the brand’s dedication to quality, elegance, and bespoke service.",
+    liveDemoLink: "https://1001candles.com/",
+    sourceCodeLink: "https://1001candles.com/",
+  },
+  {
+    id: 5,
     image: "/images/JoTiYa Project.webp",
     title: "JoTiYa Shopify Admin Panel",
     description:
@@ -42,7 +60,7 @@ const projectsData = [
     sourceCodeLink: "https://github.com/shadowofleaf96/Shopify-Admin-Panel",
   },
   {
-    id: 4,
+    id: 6,
     image: "/images/up2career.webp",
     title: "Up2Career Landing Page",
     description:
@@ -51,7 +69,7 @@ const projectsData = [
     sourceCodeLink: "https://up2career.com/",
   },
   {
-    id: 5,
+    id: 7,
     image: "/images/imusic.webp",
     title: "IMusic Android App",
     description:
@@ -62,7 +80,7 @@ const projectsData = [
       "https://xdaforums.com/t/4-2-imusic-a-elegant-music-player.4115007/",
   },
   {
-    id: 6,
+    id: 8,
     image: "/images/OldPortfolio.webp",
     title: "My Old PortFolio",
     description:
@@ -71,7 +89,7 @@ const projectsData = [
     sourceCodeLink: "https://github.com/shadowofleaf96/PortFolio",
   },
   {
-    id: 7,
+    id: 9,
     image: "/images/pcpartproject.webp",
     title: "PC Parts Ecommerce Shop",
     description:
@@ -80,7 +98,7 @@ const projectsData = [
     sourceCodeLink: "https://github.com/shadowofleaf96/EcommerceWebsite",
   },
   {
-    id: 8,
+    id: 10,
     image: "/images/Blog.webp",
     title: "TechBlog",
     description:
@@ -89,7 +107,7 @@ const projectsData = [
     sourceCodeLink: "https://github.com/shadowofleaf96/BlogWebsite",
   },
   {
-    id: 9,
+    id: 11,
     image: "/images/tadkir.webp",
     title: "Tadkir WPF App",
     description:
@@ -104,9 +122,8 @@ function ProjectCard({ project }) {
   const [isMobile, setIsMobile] = React.useState(false);
 
   useEffect(() => {
-    // Check if the screen size is mobile on mount and resize
     const checkScreenSize = () => {
-      setIsMobile(window.innerWidth <= 768); // Mobile breakpoint (768px)
+      setIsMobile(window.innerWidth <= 768);
     };
 
     checkScreenSize();
