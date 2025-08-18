@@ -21,7 +21,7 @@ function AboutMe() {
   const timelineData = [
     {
       id: 1,
-      companyName: "FREELANCE - Web Developer using WordPress",
+      companyName: "FREELANCE - Full-Stack Web Developer",
       logoSrc: "/images/freelance-icon.webp",
       date: "11/2024 - Current",
     },

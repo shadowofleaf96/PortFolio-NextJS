@@ -46,7 +46,7 @@ const projectsData = [
     image: "/images/1001candles.webp",
     title: "1001 Candles",
     description:
-      "Welcome to 1001 Candles, a refined, WordPress-powered landing page designed for a luxury artisanal candle brand. This elegant website highlights the brand’s passion for fine wax craftsmanship and high-end home fragrances. From showcasing premium ingredients to offering personalized creations, the site delivers a seamless, luxurious browsing experience that reflects the brand’s dedication to quality, elegance, and bespoke service.",
+      "1001 Candles is a luxury artisanal candle brand’s WordPress landing page, showcasing fine wax craftsmanship, premium fragrances, and bespoke creations in an elegant, seamless experience.",
     liveDemoLink: "https://1001candles.com/",
     sourceCodeLink: "https://1001candles.com/",
   },
@@ -137,10 +137,12 @@ function ProjectCard({ project }) {
   const blurProps = useSpring({
     filter: isHovered ? "blur(5px)" : "blur(0px)",
     opacity: isHovered ? 0.9 : 1,
+    visibility: isHovered ? "hidden" : "visible",
   });
 
   const overlayProps = useSpring({
     opacity: isHovered ? 1 : 0,
+    visibility: isHovered ? "visible" : "hidden",
   });
 
   const handleButtonClick = (link) => {
@@ -194,7 +196,7 @@ function ProjectCard({ project }) {
         </Typography>
 
         <CardBody>
-          <p className="text-xs sm:text-sm text-black dark:text-white">
+          <p className="text-[0.8em] sm:text-sm text-black dark:text-white">
             {project.description}
           </p>
         </CardBody>
@@ -203,28 +205,28 @@ function ProjectCard({ project }) {
           <Button
             variant="text"
             onClick={() => handleButtonClick(project.liveDemoLink)}
-            className="flex items-center rounded-full text-second font-medium dark:hover:bg-gray-50"
+            className="flex items-center rounded-lg text-second font-medium dark:hover:bg-gray-50"
           >
             <Icon
               icon="material-symbols-light:play-circle"
-              height={24}
-              width={24}
-              className="mr-2 sm:w-8 sm:h-8 md:h-12 md:w-12"
+              className="md:mr-2 w-10 h-10 sm:w-12 sm:h-12"
             />
-            <span className="text-xs sm:text-sm md:text-md hidden md:block">Live Demo</span>
+            <span className="text-xs sm:text-sm md:text-md hidden md:block">
+              Live Demo
+            </span>
           </Button>
           <Button
             variant="text"
             onClick={() => handleButtonClick(project.sourceCodeLink)}
-            className="flex items-center rounded-full text-second font-medium dark:hover:bg-gray-50"
+            className="flex items-center rounded-lg text-second font-medium dark:hover:bg-gray-50"
           >
             <Icon
               icon="mdi:github"
-              height={24}
-              width={24}
-              className="mr-2 sm:w-8 sm:h-8 md:h-12 md:w-12"
+              className="md:mr-2 w-10 h-10 sm:w-12 sm:h-12"
             />
-            <span className="text-xs sm:text-sm md:text-md hidden md:block">Source Code</span>
+            <span className="text-xs sm:text-sm md:text-md hidden md:block">
+              Source Code
+            </span>
           </Button>
         </div>
       </animated.div>
