@@ -8,6 +8,7 @@ import {
   TimelineHeader,
   Avatar,
 } from "@material-tailwind/react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -17,6 +18,8 @@ function AboutMe() {
   useEffect(() => {
     AOS.init();
   }, []);
+
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const timelineData = [
     {
@@ -50,6 +53,13 @@ function AboutMe() {
       date: "05/2019 - 05/2021",
     },
   ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % timelineData.length);
+    }, 2000); // move spotlight every 2s
+    return () => clearInterval(interval);
+  }, [timelineData.length]);
 
   return (
     <div
@@ -100,44 +110,52 @@ function AboutMe() {
             <div className="w-[20rem] md:w-[22rem] mx-auto md:mx-0">
               <Timeline>
                 {timelineData.map((item, index) => {
-                  const isLastItem = index === timelineData.length - 1;
+                  const isActive = index === activeIndex;
                   return (
-                    <TimelineItem
-                      key={item.id}
-                      className="h-28 hover:scale-105 transition-transform"
-                    >
-                      {!isLastItem && (
-                        <TimelineConnector className="!w-[78px] cursor-pointer" />
-                      )}
-                      <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white dark:bg-black py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
-                        <TimelineIcon
-                          className="p-3 dark:bg-blue-gray-200"
-                          variant="ghost"
+                    <TimelineItem key={item.id} className="h-28">
+                      <motion.div
+                        animate={{
+                          scale: isActive ? 1.05 : 1,
+                          boxShadow: isActive
+                            ? "0px 0px 20px rgba(59, 130, 246, 0.7)"
+                            : "0px 0px 0px rgba(0,0,0,0)",
+                        }}
+                        transition={{ duration: 0.5 }}
+                        className="h-full w-full rounded-xl"
+                      >
+                        <TimelineHeader
+                          className="relative rounded-xl border border-blue-gray-50 
+                           bg-white dark:bg-black py-3 pl-4 pr-8 shadow-lg"
                         >
-                          <Avatar
-                            src={item.logoSrc}
-                            alt={item.companyName}
-                            style={{ objectFit: "contain" }}
-                            size="md"
-                          />
-                        </TimelineIcon>
-                        <div className="flex flex-col gap-1">
-                          <Typography
-                            variant="h6"
-                            color="blue-gray"
-                            className="font-base text-xs md:text-sm font-poppins cursor-pointer dark:text-white"
+                          <TimelineIcon
+                            className="p-3 dark:bg-blue-gray-200"
+                            variant="ghost"
                           >
-                            {item.companyName}
-                          </Typography>
-                          <Typography
-                            variant="small"
-                            color="gray"
-                            className="font-normal font-poppins cursor-pointer dark:text-white"
-                          >
-                            {item.date}
-                          </Typography>
-                        </div>
-                      </TimelineHeader>
+                            <Avatar
+                              src={item.logoSrc}
+                              alt={item.companyName}
+                              style={{ objectFit: "contain" }}
+                              size="md"
+                            />
+                          </TimelineIcon>
+                          <div className="flex flex-col gap-1">
+                            <Typography
+                              variant="h6"
+                              color="blue-gray"
+                              className="font-base text-xs md:text-sm font-poppins cursor-pointer dark:text-white"
+                            >
+                              {item.companyName}
+                            </Typography>
+                            <Typography
+                              variant="small"
+                              color="gray"
+                              className="font-normal font-poppins cursor-pointer dark:text-white"
+                            >
+                              {item.date}
+                            </Typography>
+                          </div>
+                        </TimelineHeader>
+                      </motion.div>
                     </TimelineItem>
                   );
                 })}

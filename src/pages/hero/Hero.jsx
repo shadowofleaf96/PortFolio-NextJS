@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { motion } from "framer-motion";
 import { Button, Typography } from "@material-tailwind/react";
 import Typewriter from "typewriter-effect";
 import Image from "next/image";
@@ -38,7 +39,10 @@ function Hero() {
   };
 
   return (
-    <div id="home" className="relative flex flex-col items-center justify-center h-screen -mt-16 md:-mt-8">
+    <div
+      id="home"
+      className="relative flex flex-col items-center justify-center h-screen -mt-16 md:-mt-8"
+    >
       <div className="flex flex-col md:flex-row items-center justify-center w-full">
         <div className="relative flex items-center justify-center w-full mb-8 sm:w-1/2 md:w-2/3 lg:w-4/12 xl:w-1/3 mx-auto md:pr-4 md:mb-0">
           <div className="relative w-full max-w-[300px] sm:max-w-[340px] md:max-w-[380px] lg:max-w-[420px] xl:max-w-[600px]">
@@ -46,8 +50,6 @@ function Hero() {
               <div className="absolute inset-0 rounded-full border-4 border-second z-10" />
               <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-white border-r-white animate-spin-slow z-20" />
             </div>
-
-
 
             <div className="relative z-10 w-full">
               <Image
@@ -75,13 +77,18 @@ function Hero() {
         </div>
 
         <div className="md:w-2/4 flex flex-col items-center md:items-start justify-center">
-          <Typography
-            variant="h1"
-            className="mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-center md:text-start xl:text-8xl text-blue-gray-900 dark:text-gray-200 font-poppins"
+          <motion.div
+            animate={{ scale: [1, 1.05, 1] }}
+            transition={{ duration: 15, repeat: Infinity }}
+            className="h-full w-full"
           >
-            Hi, I'm Mohammed Kotbi
-          </Typography>
-
+            <Typography
+              variant="h1"
+              className="mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-center md:text-start xl:text-8xl text-blue-gray-900 dark:text-gray-200 font-poppins"
+            >
+              Hi, I'm Mohammed Kotbi
+            </Typography>
+          </motion.div>
           <div className="mb-8 text-second text-md md:text-lg font-poppins">
             <Typewriter
               options={{
@@ -131,7 +138,6 @@ function Hero() {
       </div>
     </div>
   );
-
 }
 
 export default Hero;
