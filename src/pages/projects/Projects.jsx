@@ -235,9 +235,18 @@ function ProjectCard({ project }) {
 }
 
 function Projects() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   useEffect(() => {
     AOS.init();
+
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % projectsData.length);
+    }, 2000);
+
+    return () => clearInterval(interval);
   }, []);
+
   return (
     <div
       data-aos="fade-zoom-in"
@@ -247,7 +256,7 @@ function Projects() {
       data-aos-easing="ease-in-out"
       data-aos-once="false"
       id="projects"
-      className="flex flex-col items-center p-4 md:p-5 scroll-mt-64 md:scroll-mt-28"
+      className="flex flex-col items-center p-4 md:p-5 scroll-mt-64 md:scroll-mt-28 relative"
     >
       <div className="w-full text-center">
         <Typography
@@ -258,9 +267,14 @@ function Projects() {
           My Projects
         </Typography>
       </div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-4 items-center mt-12">
-        {projectsData.map((project) => (
-          <ProjectCard key={project.id} project={project} className="mb-4" />
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-4 items-center mt-12 relative">
+        {projectsData.map((project, index) => (
+          <div key={project.id} className="relative">
+            <ProjectCard project={project} isActive={index === activeIndex} />
+            <div
+              className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-white via-green-400 to-second transition-all duration-1000 ease-in-out ${index === activeIndex ? 'w-full' : 'w-0'}`}
+            ></div>
+          </div>
         ))}
       </div>
     </div>

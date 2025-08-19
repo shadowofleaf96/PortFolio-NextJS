@@ -2,6 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+.animated-border-box,
+.animated-border-box-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 10px;
+  z-index: -1;
+}
+
+.animated-border-box-glow {
+  filter: blur(20px);
+  animation: rotate 4s linear infinite;
+}
+
+.animated-border-box:after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  background: #292a2e;
+  border-radius: 7px;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
 .mouse {
   width: 26px;
   height: 40px;
