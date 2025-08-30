@@ -30,7 +30,7 @@
     "framer-motion": "^10.16.16",
     "iconify": "^1.4.0",
     "intersection-observer": "^0.12.2",
-    "next": "^15.2.4",
+    "next": "^15.4.7",
     "nodemailer": "^6.9.7",
     "react": "^18.2.0",
     "react-confetti": "^6.1.0",
