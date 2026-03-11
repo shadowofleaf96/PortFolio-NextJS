@@ -1,41 +1,48 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import "../index.css"; 
+import "../app/globals.css";
+import ParticlesComponent from "./components/ParticlesComponent";
+import { Outfit } from "next/font/google";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
+  variable: "--font-outfit",
+});
 
 export default function RootLayout({ children }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timeout = setTimeout(() => setIsLoading(false), 1000);
+    const timeout = setTimeout(() => setIsLoading(false), 1500);
     return () => clearTimeout(timeout);
   }, []);
 
   return (
     <html lang="en">
       <head>
-        <title>My Portfolio</title>
-        <meta name="description" content="Hello this is my portfolio" />
+        <title>MK Portfolio | Fullstack Developer</title>
+        <meta name="description" content="MK Portfolio" />
       </head>
-      <body>
+      <body
+        className={`${outfit.className} text-foreground selection:bg-primary/30 selection:text-primary transition-colors duration-300`}
+      >
         {isLoading ? (
-          <img
-            src="/images/loader.gif"
-            style={{
-              position: "fixed",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              zIndex: 1000,
-              width: "40vw",
-              height: "auto",
-              maxWidth: "200px",
-              maxHeight: "200px",
-            }}
-            alt="Loading..."
-          />
+          <div className="fixed inset-0 z-100 flex items-center justify-center">
+            <div className="relative h-24 w-24">
+              <div className="absolute inset-0 rounded-full border-4 border-primary/20"></div>
+              <div className="absolute inset-0 rounded-full border-4 border-t-primary animate-spin"></div>
+              <div className="absolute inset-4 rounded-full border-4 border-secondary/20"></div>
+              <div className="absolute inset-4 rounded-full border-4 border-t-secondary animate-spin-reverse"></div>
+            </div>
+          </div>
         ) : (
-          children
+          <>
+            <ParticlesComponent />
+            <main className="relative z-10">{children}</main>
+          </>
         )}
       </body>
     </html>

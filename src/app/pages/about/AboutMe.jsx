@@ -1,185 +1,177 @@
-import React, { useState, useEffect } from "react";
-import {
-  Timeline,
-  TimelineItem,
-  TimelineConnector,
-  TimelineIcon,
-  Typography,
-  TimelineHeader,
-  Avatar,
-} from "@material-tailwind/react";
+"use client";
+
+import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import AOS from "aos";
-import "aos/dist/aos.css";
 import Tilt from "react-parallax-tilt";
+import { Icon } from "@iconify/react";
 
-function AboutMe() {
-  useEffect(() => {
-    AOS.init();
-  }, []);
+const experienceData = [
+  {
+    id: 1,
+    role: "Full-Stack Web Developer",
+    company: "Freelance",
+    date: "Nov 2024 - Present",
+    desc: "Crafting modern, scalable web applications for global clients.",
+    icon: "/images/freelance-icon.webp",
+    isImage: true,
+  },
+  {
+    id: 2,
+    role: "Full Stack Intern",
+    company: "Up2Career",
+    date: "Jan 2024 - Jul 2024",
+    desc: "Contributed to internal tools and enhanced user experience.",
+    icon: "/images/small_logo.webp",
+    isImage: true,
+  },
+  {
+    id: 3,
+    role: "MERN Stack Intern",
+    company: "ARK-X Talent Factory",
+    date: "Aug 2023 - Dec 2023",
+    desc: "Developed robust features using the MERN stack ecosystem.",
+    icon: "/images/arkx_logo.webp",
+    isImage: true,
+  },
+  {
+    id: 4,
+    role: "Mobile and Windows Junior Developer",
+    company: "Freelance",
+    date: "Jan 2020 - May 2022",
+    desc: "Started my journey in mobile and desktop app development.",
+    icon: "/images/freelance-icon.webp",
+    isImage: true,
+  },
+  {
+    id: 5,
+    role: "Crimping Maintenance Tech",
+    company: "LEONI BOUZNIKA",
+    date: "May 2019 - May 2021",
+    desc: "Ensured precision and reliability in mission-critical hardware.",
+    icon: "/images/leoni-ag-logo.webp",
+    isImage: true,
+  },
+];
 
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const timelineData = [
-    {
-      id: 1,
-      companyName: "FREELANCE - Full-Stack Web Developer",
-      logoSrc: "/images/freelance-icon.webp",
-      date: "11/2024 - Current",
-    },
-    {
-      id: 2,
-      companyName: "Up2Career - Full Stack Intern Developer",
-      logoSrc: "/images/small_logo.webp",
-      date: "01/2024 - 07/2024",
-    },
-    {
-      id: 3,
-      companyName: "ARK-X TALENT FACTORY - Full Stack MERN Intern Developer",
-      logoSrc: "/images/arkx_logo.webp",
-      date: "08/2023 - 12/2023",
-    },
-    {
-      id: 4,
-      companyName: "FREELANCE - Mobile and Windows Junior Developer",
-      logoSrc: "/images/freelance-icon.webp",
-      date: "01/2020 - 05/2022",
-    },
-    {
-      id: 5,
-      companyName: "LEONI BOUZNIKA - Crimping Maintenance Technician",
-      logoSrc: "/images/leoni-ag-logo.webp",
-      date: "05/2019 - 05/2021",
-    },
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % timelineData.length);
-    }, 2000); // move spotlight every 2s
-    return () => clearInterval(interval);
-  }, [timelineData.length]);
-
+const AboutMe = () => {
   return (
-    <div
-      data-aos="fade-zoom-in"
-      data-aos-offset="200"
-      data-aos-delay="50"
-      data-aos-duration="1200"
-      data-aos-easing="ease-in-out"
-      data-aos-once="false"
-      id="about-me"
-      className="text-black p-4 md:p-8 rounded-lg flex items-center justify-center scroll-mt-64 md:scroll-mt-28"
-    >
-      <div className="max-w-screen-lg text-center">
-        <Typography
-          variant="h1"
-          color="black"
-          className="underline font-medium text-4xl md:text-5xl font-poppins dark:text-white"
-        >
-          About Me
-        </Typography>
-
-        <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center mt-6">
-          <Tilt
-            className="flex justify-center"
-            tiltMaxAngleY={10}
-            tiltMaxAngleX={10}
+    <section id="about-me" className="py-24 relative overflow-hidden">
+      <div className="container mx-auto px-6 relative z-10">
+        {/* Section Header */}
+        <div className="flex flex-col items-center mb-16">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-5xl font-bold text-center mb-4 text-gradient"
           >
-            <Image
-              width="0"
-              height="0"
-              sizes="100vw"
-              alt="MK"
-              src="/images/Profile Skecth Art.webp"
-              priority={true}
-              className="w-full md:w-1/3 md:hidden h-auto object-cover rounded-full mb-4"
-            />
-          </Tilt>
+            My Journey
+          </motion.h2>
+          <div className="w-24 h-1 bg-linear-to-r from-primary to-secondary rounded-full" />
+        </div>
 
-          <div className="mx-auto text-center md:text-left max-w-full md:max-w-sm md:min-h-full flex-grow mb-4">
-            <Typography
-              color="black"
-              className="mb-4 mt-4 p-2 font-normal text-sm md:text-base font-poppins dark:text-white"
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Image/Bio Side */}
+          <div className="space-y-8">
+            <Tilt
+              tiltMaxAngleX={10}
+              tiltMaxAngleY={10}
+              perspective={1000}
+              scale={1.02}
             >
-              Enthusiastic IT and Full Stack MERN developer, eager to know more,
-              passionate about web and IT development, seeking hands-on
-              experience to grow as a skilled developer.
-            </Typography>
-            <div className="w-[20rem] md:w-[22rem] mx-auto md:mx-0">
-              <Timeline>
-                {timelineData.map((item, index) => {
-                  const isActive = index === activeIndex;
-                  return (
-                    <TimelineItem key={item.id} className="h-28">
-                      <motion.div
-                        animate={{
-                          scale: isActive ? 1.05 : 1,
-                          boxShadow: isActive
-                            ? "0px 0px 20px rgba(59, 130, 246, 0.7)"
-                            : "0px 0px 0px rgba(0,0,0,0)",
-                        }}
-                        transition={{ duration: 0.5 }}
-                        className="h-full w-full rounded-xl"
-                      >
-                        <TimelineHeader
-                          className="relative rounded-xl border border-blue-gray-50 
-                           bg-white dark:bg-black py-3 pl-4 pr-8 shadow-lg"
-                        >
-                          <TimelineIcon
-                            className="p-3 dark:bg-blue-gray-200"
-                            variant="ghost"
-                          >
-                            <Avatar
-                              src={item.logoSrc}
-                              alt={item.companyName}
-                              style={{ objectFit: "contain" }}
-                              size="md"
-                            />
-                          </TimelineIcon>
-                          <div className="flex flex-col gap-1">
-                            <Typography
-                              variant="h6"
-                              color="blue-gray"
-                              className="font-base text-xs md:text-sm font-poppins cursor-pointer dark:text-white"
-                            >
-                              {item.companyName}
-                            </Typography>
-                            <Typography
-                              variant="small"
-                              color="gray"
-                              className="font-normal font-poppins cursor-pointer dark:text-white"
-                            >
-                              {item.date}
-                            </Typography>
-                          </div>
-                        </TimelineHeader>
-                      </motion.div>
-                    </TimelineItem>
-                  );
-                })}
-              </Timeline>
-            </div>
+              <div className="glass rounded-[2.5rem] p-6 relative group overflow-hidden">
+                <div className="absolute inset-0 bg-linear-to-br from-primary/10 to-transparent group-hover:bg-primary/20 transition-colors" />
+                <div className="relative aspect-square rounded-4xl overflow-hidden grayscale hover:grayscale-0 transition-all duration-500">
+                  <Image
+                    src="/images/Profile Skecth Art.webp"
+                    alt="Mohammed Kotbi Sketch"
+                    fill
+                    className="object-cover scale-110 group-hover:scale-100 transition-transform duration-700"
+                  />
+                </div>
+              </div>
+            </Tilt>
+
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="glass p-8 rounded-4xl"
+            >
+              <p className="text-lg text-foreground/70 leading-relaxed font-light">
+                I'm an entusiastic{" "}
+                <span className="text-foreground font-medium">
+                  Full Stack MERN Developer
+                </span>{" "}
+                with a passion for building elegant digital solutions. My
+                background in maintenance engineering has instilled in me a
+                <span className="text-primary font-medium">
+                  {" "}
+                  meticulous attention to detail
+                </span>{" "}
+                and a proactive problem-solving mindset that I bring to every
+                line of code I write.
+              </p>
+            </motion.div>
           </div>
 
-          <Tilt tiltMaxAngleY={10} tiltMaxAngleX={10} gyroscope={true}>
-            <div>
-              <Image
-                priority={true}
-                alt="MK"
-                width="0"
-                height="0"
-                sizes="100vw"
-                src="/images/Profile Skecth Art.webp"
-                className="relative h-full w-full object-cover hidden md:block"
-              />
-            </div>
-          </Tilt>
+          {/* Timeline Side */}
+          <div className="space-y-6">
+            {experienceData.map((item, index) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="group relative"
+              >
+                <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-1 h-0 group-hover:h-3/4 bg-primary transition-all duration-300 rounded-full" />
+                <div className="glass-card p-6 flex gap-6 items-center">
+                  <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:scale-110 transition-transform shadow-neon overflow-hidden">
+                    {item.isImage ? (
+                      <div className="relative w-10 h-10">
+                        <Image
+                          src={item.icon}
+                          alt={item.company}
+                          fill
+                          className="object-contain p-1 dark:invert"
+                        />
+                      </div>
+                    ) : (
+                      <Icon
+                        icon={item.icon}
+                        width="28"
+                        className="text-primary"
+                      />
+                    )}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex justify-between items-start mb-1">
+                      <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+                        {item.role}
+                      </h3>
+                      <span className="text-xs font-medium px-3 py-1 rounded-full bg-foreground/5 border border-foreground/10 text-foreground/50 whitespace-nowrap">
+                        {item.date}
+                      </span>
+                    </div>
+                    <p className="text-primary/70 font-medium text-sm mb-2 uppercase tracking-wider">
+                      {item.company}
+                    </p>
+                    <p className="text-foreground/40 text-sm italic">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Background Orbs */}
+      <div className="absolute top-1/2 -right-40 w-80 h-80 bg-accent/10 rounded-full blur-[100px] -z-10" />
+      <div className="absolute bottom-1/4 -left-40 w-96 h-96 bg-primary/10 rounded-full blur-[120px] -z-10" />
+    </section>
   );
-}
+};
 
 export default AboutMe;

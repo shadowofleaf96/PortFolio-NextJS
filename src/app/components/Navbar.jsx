@@ -1,79 +1,86 @@
+"use client";
+
 import React, { useState, useEffect, useMemo } from "react";
-import {
-  Navbar,
-  MobileNav,
-  Typography,
-  Button,
-  IconButton,
-  Collapse,
-  Card,
-  Avatar,
-} from "@material-tailwind/react";
 import { Icon } from "@iconify/react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 export function NavBar() {
   const [openNav, setOpenNav] = useState(false);
   const [activeNavItem, setActiveNavItem] = useState("Home");
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
+      setDarkMode(false);
+      document.documentElement.classList.remove("dark");
+    } else {
+      setDarkMode(true);
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
+
+  const handleToggle = () => {
+    const newMode = !darkMode;
+    setDarkMode(newMode);
+    if (newMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  };
 
   const pages = useMemo(
     () => ["Home", "About Me", "Skills", "Projects", "Contact Me"],
-    []
+    [],
   );
-  const [darkMode, setDarkMode] = useState(true);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
-  const handleToggle = () => {
-    toggleDarkMode();
-    document.documentElement.classList.toggle("dark", !darkMode);
-  };
 
   useEffect(() => {
-    window.addEventListener("resize", () => {
-      if (window.innerWidth >= 960) {
-        setOpenNav(false);
-      }
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Intersection Observer for tracking active sections efficiently
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const activePage = pages.find(
+            (page) =>
+              page.toLowerCase().replace(/\s+/g, "-") === entry.target.id,
+          );
+          if (activePage) setActiveNavItem(activePage);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+      rootMargin: "-20% 0px -60% 0px",
     });
 
-    return () => {
-      window.removeEventListener("resize", () => { });
-    };
-  }, []);
-
-  useEffect(() => {
-    const navbarHeight = document.getElementById("navbar").offsetHeight;
-
-    const handleScroll = () => {
-      let foundActive = false;
-
-      for (const page of pages) {
+    setTimeout(() => {
+      pages.forEach((page) => {
         const section = document.getElementById(
-          page.toLowerCase().replace(/\s+/g, "-")
+          page.toLowerCase().replace(/\s+/g, "-"),
         );
-        if (section) {
-          const rect = section.getBoundingClientRect();
-          const isVisible =
-            rect.top <= window.innerHeight / 2.5 - navbarHeight / 2.5 &&
-            rect.bottom >= window.innerHeight / 2.5 - navbarHeight / 2.5;
+        if (section) observer.observe(section);
+      });
+    }, 500); // Give DOM time to render children fully
 
-          if (isVisible && !foundActive) {
-            setActiveNavItem(page);
-            foundActive = true;
-          }
-        }
-      }
-
-      if (!foundActive) {
-        setActiveNavItem("");
-      }
+    const handleResize = () => {
+      if (window.innerWidth >= 960) setOpenNav(false);
     };
-
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+      observer.disconnect();
     };
   }, [pages]);
 
@@ -82,152 +89,142 @@ export function NavBar() {
     setOpenNav(false);
   };
 
-  const navList = (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      {pages.map((page) => (
-        <a
-          key={page}
-          href={`#${page.toLowerCase().replace(/\s+/g, "-")}`}
-          className={`flex items-center transition-colors ${activeNavItem === page ? "text-second" : ""
-            }`}
-          onClick={() => handleNavClick(page)}
-        >
-          {page}
-        </a>
-      ))}
-    </ul>
-  );
+  const navLinks = pages.map((page) => (
+    <a
+      key={page}
+      href={`#${page.toLowerCase().replace(/\s+/g, "-")}`}
+      className={`relative px-4 py-2 transition-all duration-300 text-sm font-medium hover:text-primary ${
+        activeNavItem === page ? "text-primary" : "text-foreground/70"
+      }`}
+      onClick={() => handleNavClick(page)}
+    >
+      {page}
+      {activeNavItem === page && (
+        <motion.div
+          layoutId="activeTab"
+          className="absolute bottom-0 left-0 right-0 h-0.5 bg-linear-to-r from-primary to-secondary"
+          initial={false}
+          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+        />
+      )}
+    </a>
+  ));
 
   return (
-    <Navbar
-      id="navbar"
-      className="sticky top-0 z-20 h-max max-w-full mx-auto bg-white dark:bg-black dark:border-black"
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled ? "py-4" : "py-8"
+      }`}
     >
-      <div className="flex items-center justify-between text-black dark:text-white">
-        <a href="#" className="cursor-pointer">
-          <div className="flex items-center">
-            <Avatar
-              alt="MK"
-              src="../../../images/mrtech_white.webp"
-              className="p-0.5"
-              style={{ objectFit: "cover" }}
-            />
-            <span className="ml-2 text-2xl font-semibold">MK</span>
-          </div>
-        </a>
-        <div className="mr-4 hidden lg:block">{navList}</div>
-        <div className="flex items-center gap-4 justify-center">
-          <div className="flex items-center gap-m-1">
-            <div className="flex items-center justify-center w-full">
-              {darkMode ? (
-                <Icon
-                  key="dark-icon"
-                  className="text-yellow-600 text-3xl mr-2"
-                  icon="line-md:sunny-filled-loop-to-moon-filled-loop-transition"
-                  height={36}
-                  width={36}
-                />
-              ) : (
-                <Icon
-                  key="light-icon"
-                  className="text-yellow-600 text-3xl mr-2"
-                  icon="line-md:moon-filled-to-sunny-filled-loop-transition"
-                  height={36}
-                  width={36}
-                />
-              )}
-              <label
-                htmlFor="toggle"
-                className="flex items-center cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  id="toggle"
-                  className="sr-only peer"
-                  checked={darkMode}
-                  onChange={handleToggle}
-                />
-                <div
-                  className={`block relative bg-gray-300 w-14 h-8 p-1 rounded-full before:absolute before:bg-white before:w-6 before:h-6 before:p-1 before:rounded-full before:transition-all before:duration-500 before:left-1 peer-checked:before:left-7 ${darkMode ? "peer-checked:before:bg-black" : ""
-                    }`}
-                ></div>
-              </label>
+      <div className="container mx-auto px-6">
+        <div
+          className={`glass rounded-2xl flex items-center justify-between px-6 py-3 transition-all duration-500 ${
+            isScrolled
+              ? "shadow-neon border-primary/20"
+              : "bg-transparent border-transparent shadow-none"
+          }`}
+        >
+          {/* Logo */}
+          <a href="#" className="flex items-center gap-2 group">
+            <div className="w-10 h-10 rounded-lg bg-linear-to-br from-primary to-secondary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+              <Image
+                src="/images/mrtech_white.webp"
+                alt="Logo"
+                width={40}
+                height={40}
+                className="rounded-lg"
+              />
             </div>
+            <span className="text-xl font-bold text-gradient-neon hidden sm:block">
+              Portfolio
+            </span>
+          </a>
+
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex items-center gap-2">{navLinks}</div>
+
+          {/* Actions & Mobile Toggle */}
+          <div className="flex items-center gap-4">
+            <button
+              onClick={handleToggle}
+              className="p-2 rounded-xl glass hover:border-primary/50 transition-all text-yellow-600 dark:text-yellow-500 hover:shadow-neon"
+              aria-label="Toggle Theme"
+            >
+              <Icon
+                icon={
+                  darkMode
+                    ? "line-md:sunny-filled-loop-to-moon-filled-loop-transition"
+                    : "line-md:sun-rising-filled-loop"
+                }
+                width="24"
+                height="24"
+              />
+            </button>
+
+            <button
+              onClick={() => setOpenNav(!openNav)}
+              className="lg:hidden p-2 rounded-xl glass text-foreground/70 hover:text-primary"
+            >
+              <Icon
+                icon={openNav ? "mdi:close" : "mdi:menu"}
+                width="24"
+                height="24"
+              />
+            </button>
           </div>
-          <IconButton
-            variant="text"
-            className="ml-auto h-8 w-8 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
-            ripple={false}
-            onClick={() => setOpenNav(!openNav)}
-          >
-            {openNav ? (
-              <Icon icon="mdi:close" height={32} width={32} />
-            ) : (
-              <Icon icon="mdi:menu" height={32} width={32} />
-            )}
-          </IconButton>
         </div>
       </div>
-      <Collapse open={openNav}>
-        {navList}
-        <div className="flex items-center gap-x-1">
-          <Button
-            onClick={(e) => {
-              e.preventDefault();
-              window.open(
-                "https://www.youtube.com/channel/UC9_eEbHsL_1TL1O67Fwe7Yw",
-                "_blank"
-              );
-              setOpenNav(false);
-            }}
-            variant="text"
-            size="sm"
-            className="dark:text-white"
+
+      {/* Mobile Nav */}
+      <AnimatePresence>
+        {openNav && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="lg:hidden absolute top-full left-0 right-0 p-6"
           >
-            <Icon
-              icon="mdi:youtube"
-              height={24}
-              width={24}
-              style={{ fontSize: "1.5em", marginRight: "5px" }}
-            />
-          </Button>
-          <Button
-            onClick={(e) => {
-              e.preventDefault();
-              window.open("https://github.com/shadowofleaf96", "_blank");
-              setOpenNav(false);
-            }}
-            variant="text"
-            size="sm"
-            className="dark:text-white"
-          >
-            <Icon
-              icon="mdi:github"
-              height={24}
-              width={24}
-              style={{ fontSize: "1.5em", marginRight: "5px" }}
-            />
-          </Button>
-          <Button
-            onClick={(e) => {
-              e.preventDefault();
-              window.open("https://www.linkedin.com/in/mkotbi/", "_blank");
-              setOpenNav(false);
-            }}
-            variant="text"
-            size="sm"
-            className="dark:text-white"
-          >
-            <Icon
-              icon="mdi:linkedin"
-              height={24}
-              width={24}
-              style={{ fontSize: "1.5em", marginRight: "5px" }}
-            />
-          </Button>
-        </div>
-      </Collapse>
-    </Navbar>
+            <div className="glass rounded-2xl flex flex-col gap-4 p-6 shadow-neon border-primary/20">
+              {pages.map((page) => (
+                <a
+                  key={page}
+                  href={`#${page.toLowerCase().replace(/\s+/g, "-")}`}
+                  className={`text-lg font-medium py-2 px-4 rounded-xl transition-all ${
+                    activeNavItem === page
+                      ? "bg-primary/20 text-primary border border-primary/30"
+                      : "text-foreground/70 hover:bg-foreground/5"
+                  }`}
+                  onClick={() => handleNavClick(page)}
+                >
+                  {page}
+                </a>
+              ))}
+
+              <div className="flex gap-4 pt-4 border-t border-foreground/10">
+                <a
+                  href="#"
+                  className="p-3 rounded-xl glass text-foreground/70 hover:text-primary grow flex justify-center"
+                >
+                  <Icon icon="mdi:youtube" width="24" height="24" />
+                </a>
+                <a
+                  href="#"
+                  className="p-3 rounded-xl glass text-foreground/70 hover:text-primary grow flex justify-center"
+                >
+                  <Icon icon="mdi:github" width="24" height="24" />
+                </a>
+                <a
+                  href="#"
+                  className="p-3 rounded-xl glass text-foreground/70 hover:text-primary grow flex justify-center"
+                >
+                  <Icon icon="mdi:linkedin" width="24" height="24" />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
   );
 }
 

@@ -1,32 +1,13 @@
-import React, { useState, useEffect, useMemo } from "react";
+"use client";
+
+import React from "react";
 import { motion } from "framer-motion";
-import { Button, Typography } from "@material-tailwind/react";
 import Typewriter from "typewriter-effect";
 import Image from "next/image";
-import Confetti from "react-confetti";
+import Tilt from "react-parallax-tilt";
+import { Icon } from "@iconify/react";
 
 function Hero() {
-  const [clickCount, setClickCount] = useState(0);
-  const [showEasterEgg, setShowEasterEgg] = useState(false);
-
-  const esterOnClick = () => {
-    setClickCount((prevCount) => prevCount + 1);
-
-    if (clickCount === 4) {
-      setShowEasterEgg(true);
-    }
-  };
-
-  useEffect(() => {
-    if (showEasterEgg) {
-      const timeoutId = setTimeout(() => {
-        setClickCount(0);
-      }, 5000);
-
-      return () => clearTimeout(timeoutId);
-    }
-  }, [showEasterEgg]);
-
   const handleButtonClick = (link) => {
     if (link.startsWith("#")) {
       const targetElement = document.querySelector(link);
@@ -39,104 +20,139 @@ function Hero() {
   };
 
   return (
-    <div
+    <section
       id="home"
-      className="relative flex flex-col items-center justify-center h-screen -mt-16 md:-mt-8"
+      className="relative min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden"
     >
-      <div className="flex flex-col md:flex-row items-center justify-center w-full">
-        <div className="relative flex items-center justify-center w-full mb-8 sm:w-1/2 md:w-2/3 lg:w-4/12 xl:w-1/3 mx-auto md:pr-4 md:mb-0">
-          <div className="relative w-full max-w-[300px] sm:max-w-[340px] md:max-w-[380px] lg:max-w-[420px] xl:max-w-[600px]">
-            <div className="absolute inset-0 flex items-center justify-center scale-[1.01]">
-              <div className="absolute inset-0 rounded-full border-4 border-second z-10" />
-              <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-white border-r-white animate-spin-slow z-20" />
-            </div>
-
-            <div className="relative z-10 w-full">
-              <Image
-                width="400"
-                height="400"
-                src="/images/profile-pic.webp"
-                alt="MK"
-                priority
-                className="w-full h-auto object-cover rounded-full p-1 bg-gray-900 mx-auto"
-                onClick={esterOnClick}
-              />
-            </div>
-          </div>
-
-          {showEasterEgg && (
-            <div className="fixed inset-0 z-50 pointer-events-none">
-              <Confetti
-                numberOfPieces={1000}
-                recycle={false}
-                width={window.innerWidth}
-                height={window.innerHeight}
-              />
-            </div>
-          )}
-        </div>
-
-        <div className="md:w-2/4 flex flex-col items-center md:items-start justify-center">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          {/* Main Info Card (Bento Large) */}
           <motion.div
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 15, repeat: Infinity }}
-            className="h-full w-full"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="lg:col-span-8 glass rounded-4xl p-8 md:p-12 flex flex-col justify-center relative overflow-hidden group"
           >
-            <Typography
-              variant="h1"
-              className="mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-center md:text-start xl:text-8xl text-blue-gray-900 dark:text-gray-200 font-poppins"
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[100px] -z-10 group-hover:bg-primary/20 transition-colors" />
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
             >
-              Hi, I'm Mohammed Kotbi
-            </Typography>
+              <h2 className="text-primary font-medium tracking-widest uppercase mb-4 text-sm">
+                Fullstack Developer
+              </h2>
+              <h1 className="text-5xl md:text-7xl xl:text-8xl font-bold mb-6 text-gradient">
+                Mohammed <br />
+                <span className="text-gradient-neon">Kotbi</span>
+              </h1>
+
+              <div className="text-xl md:text-2xl text-foreground/60 mb-8 h-12">
+                <Typewriter
+                  options={{
+                    strings: [
+                      "Building Digital Excellence",
+                      "Fullstack Visionary",
+                      "Android Innovator",
+                      "Tech Enthusiast",
+                    ],
+                    autoStart: true,
+                    delay: 50,
+                    loop: true,
+                    deleteSpeed: 30,
+                  }}
+                />
+              </div>
+
+              <div className="flex flex-wrap gap-4">
+                <button
+                  onClick={() => handleButtonClick("#contact-me")}
+                  className="px-8 py-4 rounded-2xl bg-linear-to-r from-primary to-secondary text-white font-bold shadow-neon hover:scale-105 transition-transform"
+                >
+                  Hire Me
+                </button>
+                <button
+                  onClick={() =>
+                    handleButtonClick("https://github.com/shadowofleaf96")
+                  }
+                  className="px-8 py-4 rounded-2xl glass font-bold text-foreground hover:border-primary/50 transition-all flex items-center gap-2"
+                >
+                  <Icon icon="mdi:github" width="24" /> View Projects
+                </button>
+              </div>
+            </motion.div>
           </motion.div>
-          <div className="mb-8 text-second text-md md:text-lg font-poppins">
-            <Typewriter
-              options={{
-                strings: [
-                  "A Full Stack Web Developer",
-                  "An Android Developer",
-                  "A PC Gamer",
-                  "A PC Builder",
-                  "A PC Repair Technician",
-                  "A YouTuber",
-                ],
-                autoStart: true,
-                delay: 50,
-                loop: true,
-              }}
-            />
-          </div>
 
-          <div className="flex flex-col items-center md:items-start md:flex-row mb-4 md:mb-8">
-            <Button
-              onClick={() =>
-                handleButtonClick(
-                  "https://drive.google.com/file/d/1WbTb0dU3CATOqMporUgwjuAkW0o3Bijj/view?usp=sharing"
-                )
-              }
-              ripple
-              className="font-poppins bg-second text-white border-2 border-second hover:bg-green-500 hover:border-green-500 transition duration-300 mb-4 md:mr-2 dark:bg-second dark:hover:bg-green-500 dark:text-gray-200 dark:hover:border-green-500"
+          {/* Profile Card (Bento Small) */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="lg:col-span-4 flex flex-col gap-8"
+          >
+            <Tilt
+              tiltMaxAngleX={15}
+              tiltMaxAngleY={15}
+              perspective={1000}
+              scale={1.02}
+              className="flex-1"
             >
-              View My Resume
-            </Button>
+              <div className="glass rounded-4xl p-4 h-full flex items-center justify-center relative overflow-hidden group">
+                <div className="absolute inset-0 bg-linear-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative w-full aspect-square rounded-3xl overflow-hidden">
+                  <Image
+                    src="/images/profile-pic.webp"
+                    alt="Mohammed Kotbi"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+              </div>
+            </Tilt>
 
-            <Button
-              ripple
-              onClick={() => handleButtonClick("#contact-me")}
-              className="font-poppins bg-transparent dark:bg-black text-black border-2 border-second hover:border-green-500 hover:text-green-500 transition duration-300 mb-4 md:mr-2 dark:text-white dark:hover:border-green-500 dark:hover:text-green-500"
-            >
-              Contact Me
-            </Button>
-          </div>
+            <div className="glass rounded-4xl p-6 flex items-center justify-around">
+              <div className="text-center">
+                <p className="text-2xl font-bold text-gradient-neon">3+</p>
+                <p className="text-xs text-foreground/50 uppercase">
+                  Years Exp.
+                </p>
+              </div>
+              <div className="h-10 w-px bg-foreground/10" />
+              <div className="text-center">
+                <p className="text-2xl font-bold text-gradient-neon">20+</p>
+                <p className="text-xs text-foreground/50 uppercase">Projects</p>
+              </div>
+              <div className="h-10 w-px bg-foreground/10" />
+              <div className="text-center">
+                <p className="text-2xl font-bold text-gradient-neon">15+</p>
+                <p className="text-xs text-foreground/50 uppercase">Clients</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 1 }}
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-4"
+        >
+          <span className="text-xs uppercase tracking-widest text-foreground/30 font-medium">
+            Explore
+          </span>
+          <div className="mouse">
+            <div className="roll"></div>
+          </div>
+        </motion.div>
       </div>
 
-      <p className="text-black mb-2 dark:text-white">Scroll Down</p>
-      <div className="mouse">
-        <div className="roll"></div>
-        <div className="rollshadow"></div>
-      </div>
-    </div>
+      {/* Background Decor */}
+      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/20 rounded-full blur-[120px] -z-10 animate-pulse-slow" />
+      <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-secondary/20 rounded-full blur-[120px] -z-10 animate-pulse-slow" />
+    </section>
   );
 }
 

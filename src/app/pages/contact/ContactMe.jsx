@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+"use client";
+
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Typography, Alert } from "@material-tailwind/react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { motion } from "framer-motion";
+import { Icon } from "@iconify/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
@@ -10,158 +11,216 @@ import axios from "axios";
 const schema = yup.object().shape({
   firstName: yup.string().required("First name is required"),
   lastName: yup.string().required("Last name is required"),
-  email: yup.string().email("Invalid email format").required("Email is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
   message: yup.string().required("Message is required"),
 });
 
 const ContactMe = () => {
-  const [alert, setAlert] = useState(null);
+  const [status, setStatus] = useState(null);
+  const [revealedInfo, setRevealedInfo] = useState({
+    email: false,
+    phone: false,
+    location: false,
+  });
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('/api/send-email', data);
-
-      if (response.status === 200) {
-        setAlert({ severity: "success", message: "Email sent successfully!" });
+      const resp = await axios.post("/api/send-email", data);
+      if (resp.status === 200) {
+        setStatus({
+          type: "success",
+          msg: "Message sent! I'll get back to you soon.",
+        });
         reset();
-      } else {
-        setAlert({ severity: "error", message: "Failed to send email. Please try again." });
       }
-    } catch (error) {
-      setAlert({ severity: "error", message: "An error occurred. Please try again later." });
+    } catch (err) {
+      setStatus({
+        type: "error",
+        msg: "Failed to send message. Please try again.",
+      });
     }
-
-    setTimeout(() => setAlert(null), 5000);
+    setTimeout(() => setStatus(null), 5000);
   };
 
+  const handleReveal = (label, originalLink) => {
+    if (!revealedInfo[label.toLowerCase()]) {
+      setRevealedInfo((prev) => ({ ...prev, [label.toLowerCase()]: true }));
+      return; // Prevent default navigation on first click
+    }
+    // If already revealed, allow normal link behavior
+    window.location.href = originalLink;
+  };
 
-  useEffect(() => {
-    AOS.init();
-  }, []);
+  const contactInfo = [
+    {
+      icon: "mdi:email",
+      label: "Email",
+      value: "simokb46@gmail.com",
+      link: "mailto:simokb46@gmail.com",
+    },
+    {
+      icon: "mdi:phone",
+      label: "Phone",
+      value: "+212642017898",
+      link: "tel:+212642017898",
+    },
+    {
+      icon: "mdi:map-marker",
+      label: "Location",
+      value: "Casablanca, Morocco",
+      link: "#",
+    },
+  ];
 
   return (
-    <div
-      data-aos="fade-zoom-in"
-      data-aos-offset="200"
-      data-aos-delay="50"
-      data-aos-duration="1200"
-      data-aos-easing="ease-in-out"
-      data-aos-once="false"
-      direction="column"
-      id="contact-me"
-      className="space-y-2 items-center justify-center"
-      style={{ borderRadius: "5px", marginBottom: "50px", pointerEvents: "auto" }}
-    >
-      <div className="w-full p-5" style={{ textAlign: "center" }}>
-        <div>
-          <h1 className="underline text-center dark:text-white font-medium text-4xl md:text-5xl font-poppins">
-            Contact Me
-          </h1>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col items-center mt-12"
-            noValidate
+    <section id="contact-me" className="py-24 relative overflow-hidden">
+      <div className="container mx-auto px-6 relative z-10">
+        {/* Header */}
+        <div className="flex flex-col items-center mb-16">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-5xl font-bold text-center mb-4 text-gradient"
           >
-            <div className="w-full md:w-3/4 lg:w-3/4 xl:w-2/3">
-              <div className="flex flex-col md:flex-row">
-                <div className="w-full">
-                  <input
-                    id="firstName"
-                    {...register("firstName")}
-                    type="text"
-                    className="my-2 py-2 px-4 rounded-md text-gray-900 bg-white w-full outline-none focus:ring-2 focus:ring-second"
-                    placeholder="First Name"
-                    aria-invalid={errors.firstName ? "true" : "false"}
-                  />
-                  {errors.firstName && (
-                    <p className="text-red-500 text-sm text-left">
-                      {errors.firstName.message}
-                    </p>
-                  )}
-                </div>
-                <div className="w-full md:w-1/2 md:ml-2">
-                  <input
-                    id="lastName"
-                    {...register("lastName")}
-                    type="text"
-                    className="my-2 py-2 px-4 rounded-md text-gray-900 bg-white w-full outline-none focus:ring-2 focus:ring-second"
-                    placeholder="Last Name"
-                    aria-invalid={errors.lastName ? "true" : "false"}
-                  />
-                  {errors.lastName && (
-                    <p className="text-red-500 text-sm text-left">
-                      {errors.lastName.message}
-                    </p>
-                  )}
-                </div>
-              </div>
+            Let's Build Something
+          </motion.h2>
+          <div className="w-24 h-1 bg-linear-to-r from-primary to-secondary rounded-full" />
+        </div>
 
-              <div className="w-full">
-                <input
-                  id="email"
-                  {...register("email")}
-                  type="email"
-                  placeholder="Email"
-                  className="my-2 py-2 px-4 rounded-md text-gray-900 bg-white w-full outline-none focus:ring-2 focus:ring-second"
-                  aria-invalid={errors.email ? "true" : "false"}
-                />
-                {errors.email && (
-                  <p className="text-red-500 text-sm text-left">
-                    {errors.email.message}
-                  </p>
-                )}
-              </div>
-
-              <div className="w-full">
-                <textarea
-                  id="message"
-                  {...register("message")}
-                  rows="5"
-                  placeholder="Your Message"
-                  className="my-2 py-2 px-4 rounded-md text-gray-900 bg-white w-full outline-none focus:ring-2 focus:ring-second"
-                  aria-invalid={errors.message ? "true" : "false"}
-                ></textarea>
-                {errors.message && (
-                  <p className="text-red-500 text-sm text-left">
-                    {errors.message.message}
-                  </p>
-                )}
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-6xl mx-auto">
+          {/* Info Side */}
+          <div className="lg:col-span-4 space-y-8 my-auto">
+            <div className="glass p-8 rounded-4xl space-y-6">
+              <h3 className="text-xl font-bold text-foreground mb-2">
+                Contact Info
+              </h3>
+              {contactInfo.map((info) => (
+                <div
+                  key={info.label}
+                  onClick={() => handleReveal(info.label, info.link)}
+                  className="flex items-center gap-4 group cursor-pointer"
+                >
+                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary border border-primary/20 group-hover:scale-110 transition-all shadow-neon">
+                    <Icon icon={info.icon} width="24" />
+                  </div>
+                  <div>
+                    <p className="text-foreground/30 text-xs font-bold uppercase tracking-widest">
+                      {info.label}
+                    </p>
+                    <p className="text-foreground/70 group-hover:text-foreground transition-colors text-sm font-medium">
+                      {revealedInfo[info.label.toLowerCase()]
+                        ? info.value
+                        : "Click to reveal"}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
+          </div>
 
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              ripple={true}
-              className="font-poppins mx-2 flex items-center justify-center w-full md:w-3/4 lg:w-3/4 xl:w-2/3 mt-4 bg-second text-white border-2 border-second hover:bg-green-500 hover:border-green-500 transition duration-300 mb-4 md:mr-2 dark:bg-second dark:hover:bg-green-500 dark:text-gray-200 dark:hover:border-green-500"
+          {/* Form Side */}
+          <div className="lg:col-span-8">
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="glass p-8 md:p-12 rounded-[2.5rem] relative overflow-hidden"
             >
-              {isSubmitting ? "Sending..." : "Send Message"}
-            </Button>
-          </form>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl" />
+
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-foreground/40 text-xs font-bold uppercase tracking-widest ml-2">
+                      First Name
+                    </label>
+                    <input
+                      {...register("firstName")}
+                      className={`w-full glass bg-foreground/5 rounded-2xl px-6 py-4 outline-hidden focus:ring-2 focus:ring-primary/50 transition-all text-foreground placeholder:text-foreground/30 ${errors.firstName ? "ring-2 ring-red-500/50" : ""}`}
+                      placeholder="John"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-foreground/40 text-xs font-bold uppercase tracking-widest ml-2">
+                      Last Name
+                    </label>
+                    <input
+                      {...register("lastName")}
+                      className={`w-full glass bg-foreground/5 rounded-2xl px-6 py-4 outline-hidden focus:ring-2 focus:ring-primary/50 transition-all text-foreground placeholder:text-foreground/30 ${errors.lastName ? "ring-2 ring-red-500/50" : ""}`}
+                      placeholder="Doe"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-foreground/40 text-xs font-bold uppercase tracking-widest ml-2">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    {...register("email")}
+                    className={`w-full glass bg-foreground/5 rounded-2xl px-6 py-4 outline-hidden focus:ring-2 focus:ring-primary/50 transition-all text-foreground placeholder:text-foreground/30 ${errors.email ? "ring-2 ring-red-500/50" : ""}`}
+                    placeholder="john@example.com"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-foreground/40 text-xs font-bold uppercase tracking-widest ml-2">
+                    Your Message
+                  </label>
+                  <textarea
+                    {...register("message")}
+                    rows="6"
+                    className={`w-full glass bg-foreground/5 rounded-2xl px-6 py-4 outline-hidden focus:ring-2 focus:ring-primary/50 transition-all text-foreground placeholder:text-foreground/30 resize-none ${errors.message ? "ring-2 ring-red-500/50" : ""}`}
+                    placeholder="Tell me about your project..."
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-linear-to-r from-primary to-secondary text-white font-bold py-5 rounded-2xl shadow-neon hover:scale-[1.02] transition-all disabled:opacity-50 disabled:scale-100 flex items-center justify-center gap-3 group"
+                >
+                  {isSubmitting ? (
+                    "Dispatching..."
+                  ) : (
+                    <>
+                      Send Message
+                      <Icon
+                        icon="mdi:send"
+                        width="20"
+                        className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+                      />
+                    </>
+                  )}
+                </button>
+
+                {status && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`p-4 rounded-xl text-center text-sm font-medium ${status.type === "success" ? "bg-green-500/10 text-green-400" : "bg-red-500/10 text-red-400"}`}
+                  >
+                    {status.msg}
+                  </motion.div>
+                )}
+              </form>
+            </motion.div>
+          </div>
         </div>
       </div>
 
-      {alert && (
-        <Alert
-          color={alert.severity === "success" ? "green" : "red"}
-          borderLeft
-          role="alert"
-          open={!!alert}
-          onClose={() => setAlert(null)}
-          className="w-1/3 flex items-center justify-start"
-        >
-          {alert.message}
-        </Alert>
-      )}
-    </div>
+      {/* Decorative Orbs */}
+      <div className="absolute top-1/4 -right-40 w-96 h-96 bg-primary/5 rounded-full blur-[120px] -z-10" />
+      <div className="absolute bottom-1/4 -left-40 w-96 h-96 bg-secondary/5 rounded-full blur-[120px] -z-10" />
+    </section>
   );
 };
 
