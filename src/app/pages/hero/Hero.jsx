@@ -112,6 +112,8 @@ function Hero() {
                     alt="Mohammed Kotbi"
                     fill
                     className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                    quality={90}
                     priority
                   />
                 </div>

@@ -143,6 +143,7 @@ export function NavBar() {
                 width={40}
                 height={40}
                 className="rounded-xl scale-110"
+                priority
               />
             </motion.div>
             <span className="text-xl font-black tracking-tight text-gradient-neon hidden sm:block">

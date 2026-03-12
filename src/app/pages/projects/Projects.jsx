@@ -27,6 +27,7 @@ const ProjectCard = ({ project }) => {
             alt={project.title}
             fill
             className="object-cover group-hover/image:scale-110 transition-transform duration-700 z-0 relative"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
 

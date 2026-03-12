@@ -43,6 +43,7 @@ const AboutMe = () => {
                     alt="Mohammed Kotbi Sketch"
                     fill
                     className="object-cover scale-110 group-hover:scale-100 transition-transform duration-700"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                 </div>
               </div>
@@ -90,6 +91,7 @@ const AboutMe = () => {
                             alt={item.company}
                             fill
                             className="object-contain p-1 dark:invert"
+                            sizes="40px"
                           />
                         </div>
                       ) : (
