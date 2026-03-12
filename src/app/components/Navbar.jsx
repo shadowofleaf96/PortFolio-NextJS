@@ -1,9 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { slugify } from "../utils/helpers";
+
+const NAV_PAGES = ["Home", "About Me", "Skills", "Projects", "Contact Me"];
 
 export function NavBar() {
   const [openNav, setOpenNav] = useState(false);
@@ -12,32 +15,23 @@ export function NavBar() {
   const [darkMode, setDarkMode] = useState(true);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "light") {
-      setDarkMode(false);
-      document.documentElement.classList.remove("dark");
-    } else {
-      setDarkMode(true);
-      document.documentElement.classList.add("dark");
-    }
+    // Sync theme on mount without hydration flash
+    const timer = setTimeout(() => {
+      const savedTheme = localStorage.getItem("theme") || "dark";
+      const isDark = savedTheme !== "light";
+      setDarkMode(isDark);
+      document.documentElement.classList.toggle("dark", isDark);
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const handleToggle = () => {
     const newMode = !darkMode;
     setDarkMode(newMode);
-    if (newMode) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
+    document.documentElement.classList.toggle("dark", newMode);
+    localStorage.setItem("theme", newMode ? "dark" : "light");
   };
-
-  const pages = useMemo(
-    () => ["Home", "About Me", "Skills", "Projects", "Contact Me"],
-    [],
-  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,15 +40,11 @@ export function NavBar() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
 
-    // Intersection Observer for tracking active sections efficiently
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const activePage = pages.find(
-            (page) =>
-              page.toLowerCase().replace(/\s+/g, "-") === entry.target.id,
-          );
-          if (activePage) setActiveNavItem(activePage);
+          const active = NAV_PAGES.find(p => slugify(p) === entry.target.id);
+          if (active) setActiveNavItem(active);
         }
       });
     };
@@ -63,14 +53,13 @@ export function NavBar() {
       rootMargin: "-20% 0px -60% 0px",
     });
 
+    // Short delay to ensure sections are in the DOM
     setTimeout(() => {
-      pages.forEach((page) => {
-        const section = document.getElementById(
-          page.toLowerCase().replace(/\s+/g, "-"),
-        );
+      NAV_PAGES.forEach((page) => {
+        const section = document.getElementById(slugify(page));
         if (section) observer.observe(section);
       });
-    }, 500); // Give DOM time to render children fully
+    }, 500);
 
     const handleResize = () => {
       if (window.innerWidth >= 960) setOpenNav(false);
@@ -82,60 +71,81 @@ export function NavBar() {
       window.removeEventListener("resize", handleResize);
       observer.disconnect();
     };
-  }, [pages]);
+  }, [setOpenNav]);
 
   const handleNavClick = (page) => {
     setActiveNavItem(page);
     setOpenNav(false);
+
+    const section = document.getElementById(slugify(page));
+    if (section) section.scrollIntoView({ behavior: "smooth" });
   };
 
-  const navLinks = pages.map((page) => (
-    <a
-      key={page}
-      href={`#${page.toLowerCase().replace(/\s+/g, "-")}`}
-      className={`relative px-4 py-2 transition-all duration-300 text-sm font-medium hover:text-primary ${
-        activeNavItem === page ? "text-primary" : "text-foreground/70"
-      }`}
-      onClick={() => handleNavClick(page)}
-    >
-      {page}
+  const navLinks = NAV_PAGES.map((page) => (
+    <div key={page} className="relative">
+      <button
+        onClick={() => handleNavClick(page)}
+        className={`relative z-10 px-4 py-2 text-sm font-bold transition-colors duration-300 ${
+          activeNavItem === page
+            ? "text-white dark:text-foreground"
+            : "text-foreground/70 hover:text-primary"
+        }`}
+      >
+        {page}
+      </button>
       {activeNavItem === page && (
         <motion.div
-          layoutId="activeTab"
-          className="absolute bottom-0 left-0 right-0 h-0.5 bg-linear-to-r from-primary to-secondary"
+          layoutId="navPill"
+          className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-full -z-0"
           initial={false}
-          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+          transition={{
+            type: "spring",
+            stiffness: 400,
+            damping: 30,
+          }}
         />
       )}
-    </a>
+    </div>
   ));
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? "py-4" : "py-8"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 flex justify-center ${
+        isScrolled ? "mt-0" : "mt-6 md:mt-8"
       }`}
     >
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto relative flex justify-center w-full">
+        {/* Animated Background layer */}
         <div
-          className={`glass rounded-2xl flex items-center justify-between px-6 py-3 transition-all duration-500 ${
+          className={`absolute transition-all duration-500 ease-in-out bg-background/20 backdrop-blur-md pointer-events-none -z-10 ${
             isScrolled
-              ? "shadow-neon border-primary/20"
-              : "bg-transparent border-transparent shadow-none"
+              ? "w-[100vw] left-1/2 -translate-x-1/2 top-0 bottom-0 rounded-none shadow-neon border border-transparent"
+              : "w-[calc(100%-2rem)] md:w-[calc(100%-3rem)] left-1/2 -translate-x-1/2 top-0 bottom-0 rounded-full border border-white/10 shadow-lg"
+          }`}
+        />
+
+        {/* Navbar Content */}
+        <div
+          className={`w-[calc(100%-2rem)] md:w-full flex items-center justify-between px-4 sm:px-8 md:px-12 transition-all duration-500 ${
+            isScrolled ? "py-3" : "py-2"
           }`}
         >
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-lg bg-linear-to-br from-primary to-secondary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+          <a href="#" className="flex items-center gap-3 group">
+            <motion.div
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform overflow-hidden"
+            >
               <Image
                 src="/images/mrtech_white.webp"
                 alt="Logo"
                 width={40}
                 height={40}
-                className="rounded-lg"
+                className="rounded-xl scale-110"
               />
-            </div>
-            <span className="text-xl font-bold text-gradient-neon hidden sm:block">
+            </motion.div>
+            <span className="text-xl font-black tracking-tight text-gradient-neon hidden sm:block">
               Portfolio
             </span>
           </a>
@@ -144,7 +154,7 @@ export function NavBar() {
           <div className="hidden lg:flex items-center gap-2">{navLinks}</div>
 
           {/* Actions & Mobile Toggle */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-4">
             <button
               onClick={handleToggle}
               className="p-2 rounded-xl glass hover:border-primary/50 transition-all text-yellow-600 dark:text-yellow-500 hover:shadow-neon"
@@ -185,10 +195,10 @@ export function NavBar() {
             className="lg:hidden absolute top-full left-0 right-0 p-6"
           >
             <div className="glass rounded-2xl flex flex-col gap-4 p-6 shadow-neon border-primary/20">
-              {pages.map((page) => (
+              {NAV_PAGES.map((page) => (
                 <a
                   key={page}
-                  href={`#${page.toLowerCase().replace(/\s+/g, "-")}`}
+                  href={`#${slugify(page)}`}
                   className={`text-lg font-medium py-2 px-4 rounded-xl transition-all ${
                     activeNavItem === page
                       ? "bg-primary/20 text-primary border border-primary/30"

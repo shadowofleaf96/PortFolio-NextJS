@@ -7,6 +7,7 @@ import { Icon } from "@iconify/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
+import { slugify } from "../../utils/helpers";
 
 const schema = yup.object().shape({
   firstName: yup.string().required("First name is required"),
@@ -41,7 +42,7 @@ const ContactMe = () => {
         });
         reset();
       }
-    } catch (err) {
+    } catch {
       setStatus({
         type: "error",
         msg: "Failed to send message. Please try again.",
@@ -50,13 +51,13 @@ const ContactMe = () => {
     setTimeout(() => setStatus(null), 5000);
   };
 
-  const handleReveal = (label, originalLink) => {
-    if (!revealedInfo[label.toLowerCase()]) {
-      setRevealedInfo((prev) => ({ ...prev, [label.toLowerCase()]: true }));
-      return; // Prevent default navigation on first click
+  const handleReveal = (label, link) => {
+    const key = label.toLowerCase();
+    if (!revealedInfo[key]) {
+      setRevealedInfo(prev => ({ ...prev, [key]: true }));
+    } else if (link !== "#") {
+      window.location.assign(link);
     }
-    // If already revealed, allow normal link behavior
-    window.location.href = originalLink;
   };
 
   const contactInfo = [
@@ -81,7 +82,7 @@ const ContactMe = () => {
   ];
 
   return (
-    <section id="contact-me" className="py-24 relative overflow-hidden">
+    <section id={slugify("Contact Me")} className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="flex flex-col items-center mb-16">
@@ -90,16 +91,16 @@ const ContactMe = () => {
             whileInView={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-bold text-center mb-4 text-gradient"
           >
-            Let's Build Something
+            Let&apos;s Build Something
           </motion.h2>
-          <div className="w-24 h-1 bg-linear-to-r from-primary to-secondary rounded-full" />
+          <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary rounded-full" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 max-w-7xl mx-auto items-start">
           {/* Info Side */}
-          <div className="lg:col-span-4 space-y-8 my-auto">
-            <div className="glass p-8 rounded-4xl space-y-6">
-              <h3 className="text-xl font-bold text-foreground mb-2">
+          <div className="lg:col-span-5 xl:col-span-4 space-y-8">
+            <div className="glass p-6 md:p-8 rounded-3xl space-y-6">
+              <h3 className="text-xl font-bold text-foreground mb-4">
                 Contact Info
               </h3>
               {contactInfo.map((info) => (
@@ -108,14 +109,14 @@ const ContactMe = () => {
                   onClick={() => handleReveal(info.label, info.link)}
                   className="flex items-center gap-4 group cursor-pointer"
                 >
-                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary border border-primary/20 group-hover:scale-110 transition-all shadow-neon">
+                  <div className="w-12 h-12 shrink-0 rounded-2xl bg-primary/10 flex items-center justify-center text-primary border border-primary/20 group-hover:scale-110 transition-all shadow-neon">
                     <Icon icon={info.icon} width="24" />
                   </div>
-                  <div>
-                    <p className="text-foreground/30 text-xs font-bold uppercase tracking-widest">
+                  <div className="min-w-0">
+                    <p className="text-foreground/30 text-[10px] font-bold uppercase tracking-widest">
                       {info.label}
                     </p>
-                    <p className="text-foreground/70 group-hover:text-foreground transition-colors text-sm font-medium">
+                    <p className="text-foreground/70 group-hover:text-foreground transition-colors text-sm font-medium truncate">
                       {revealedInfo[info.label.toLowerCase()]
                         ? info.value
                         : "Click to reveal"}
@@ -127,11 +128,11 @@ const ContactMe = () => {
           </div>
 
           {/* Form Side */}
-          <div className="lg:col-span-8">
+          <div className="lg:col-span-7 xl:col-span-8">
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              className="glass p-8 md:p-12 rounded-[2.5rem] relative overflow-hidden"
+              className="glass p-6 md:p-10 rounded-3xl relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl" />
 
@@ -186,7 +187,7 @@ const ContactMe = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-linear-to-r from-primary to-secondary text-white font-bold py-5 rounded-2xl shadow-neon hover:scale-[1.02] transition-all disabled:opacity-50 disabled:scale-100 flex items-center justify-center gap-3 group"
+                  className="w-full bg-gradient-to-r from-primary to-secondary text-white font-bold py-5 rounded-2xl shadow-neon hover:scale-[1.02] transition-all disabled:opacity-50 disabled:scale-100 flex items-center justify-center gap-3 group"
                 >
                   {isSubmitting ? (
                     "Dispatching..."
@@ -196,7 +197,7 @@ const ContactMe = () => {
                       <Icon
                         icon="mdi:send"
                         width="20"
-                        className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+                        className="group-hover:translate-x-1.5 transition-transform"
                       />
                     </>
                   )}

@@ -1,65 +1,36 @@
-# My Portfolio
-
-Welcome to my portfolio, a simple, minimalist and elegant showcase of my work and skills. This portfolio is created using NextJS, Tailwind, and NodeJS, highlighting my abilities in web development and design. Feel free to explore my projects, learn more about me, and get in touch for potential collaborations.
-
-![Portfolio Mockup](https://github.com/shadowofleaf96/PortFolio-NextJS/blob/main/mockup.png?raw=true)
-
-
-Live demo : [live demo](https://port-folio-next-js-gamma.vercel.app/)
-
-## Table of Contents
-
-- [Features](#features)
-- [Getting Started](#getting-started)
-- [Contributing](#contributing)
-
-## Features
-
-- **Responsive Design**: A mobile-friendly and responsive layout for seamless viewing on various devices.
-- **Project Showcase**: Display of my latest and most significant projects with project details.
-- **Skills Section**: An overview of the technologies and skills I possess.
-- **About Me**: A brief introduction to who I am, my experiences.
-- **Hero Section**: A good presentation of my portfolio.
-- **Contact Information**: Easy access to get in touch with me.
-- **Light Theme**: Showcase in Dark or Light Area
-
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
-### Prerequisites
+First, run the development server:
 
-Make sure you have the following installed on your machine:
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-- [Node.js](https://nodejs.org/)
-- [npm](https://www.npmjs.com/) (comes with Node.js)
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Installation
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-1. Clone the repository:
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-   ```bash
-   git clone https://github.com/shadowofleaf96/PortFolio-NextJS.git
-   ```
+## Learn More
 
-2. Change into the project directory:
+To learn more about Next.js, take a look at the following resources:
 
-   ```bash
-   cd PortFolio-NextJS
-   ```
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-3. Install dependencies:
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-   ```bash
-   npm install
-   ```
-   
+## Deploy on Vercel
 
-6. Start the development server:
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-   ```bash
-   npm run dev
-   ```
-
-## Contributing
-
-While this portfolio primarily serves as a personal showcase, I appreciate feedback and suggestions for improvement. Feel free to open an issue or submit a pull request if you have any ideas to enhance the portfolio.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

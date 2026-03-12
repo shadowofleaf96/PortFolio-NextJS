@@ -1,49 +1,21 @@
-@import "tailwindcss";
-@source ".";
-@custom-variant dark (&:where(.dark, .dark *));
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  /* Colors */
-  --color-primary: #6366f1;
-  --color-secondary: #a855f7;
-  --color-accent: #ec4899;
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card-bg: var(--card-bg);
-  --color-card-border: var(--card-border);
-
-  /* Shadows */
-  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  --shadow-neon: 0 0 20px rgba(99, 102, 241, 0.4);
-
-  /* Font */
-  --font-outfit: "Outfit", sans-serif;
-
-  /* Animations */
-  --animate-pulse-slow: pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-spin-reverse: spin-reverse 1s linear infinite;
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(-20px);
-    }
+@layer base {
+  :root {
+    --theme-primary: oklch(029.48% 0.096 256.14);
   }
 
-  @keyframes spin-reverse {
-    from {
-      transform: rotate(360deg);
-    }
+  [data-theme="dark"] {
+    --theme-primary: oklch(082.81% 0.085 263.31);
+  }
 
-    to {
-      transform: rotate(0deg);
-    }
+  [data-theme="vaporwave"] {
+    --theme-primary: oklch(089.94% 0.057 299.73);
   }
 }
+
 
 /* Theme-switching CSS variables (light/dark) */
 :root {
@@ -51,6 +23,22 @@
   --foreground: #0f172a;
   --card-bg: rgba(0, 0, 0, 0.05);
   --card-border: rgba(0, 0, 0, 0.1);
+
+  --color-primary: 99 102 241; /* #6366f1 */
+  --color-secondary: 168 85 247; /* #a855f7 */
+  --color-second: 213 196 85; /* #d5c455 */
+  --color-accent: 236 72 153; /* #ec4899 */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+
+  --shadow-glass: 0 10px 40px -10px rgba(0, 0, 0, 0.15);
+  --shadow-neon: 0 0 30px rgba(var(--color-primary) / 0.5);
+  --shadow-ring-glow: 0 0 6px 3px #00FFAB;
+  --shadow-white-glow: 0 0 6px 3px white;
+
+  --font-outfit: "Outfit", sans-serif;
 }
 
 .dark {
@@ -58,6 +46,7 @@
   --foreground: #ffffff;
   --card-bg: rgba(255, 255, 255, 0.05);
   --card-border: rgba(255, 255, 255, 0.1);
+  --shadow-glass: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
 }
 
 /* Base Styles */
@@ -82,43 +71,46 @@ body {
 /* Glassmorphism Utilities */
 .glass {
   background: var(--color-card-bg);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--color-card-border);
   box-shadow: var(--shadow-glass);
+  transition: all 0.5s ease-in-out;
 }
 
 .glass-card {
   background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.15);
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.5);
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
   background: var(--color-background);
+  border-left: 1px solid var(--color-foreground);
+  opacity: 0.1;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, var(--color-primary), var(--color-secondary));
-  border-radius: 4px;
+  background: linear-gradient(to bottom, rgb(var(--color-primary)), rgb(var(--color-accent)));
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, var(--color-secondary), var(--color-accent));
+  background: linear-gradient(to bottom, rgb(var(--color-secondary)), rgb(var(--color-primary)));
 }
 
 /* Animated Background */
@@ -134,7 +126,7 @@ body {
 .animated-border-box-glow {
   position: absolute;
   inset: -2px;
-  background: linear-gradient(45deg, var(--color-primary), var(--color-secondary), var(--color-accent), var(--color-primary));
+  background: linear-gradient(45deg, rgb(var(--color-primary)), rgb(var(--color-secondary)), rgb(var(--color-accent)), rgb(var(--color-primary)));
   background-size: 400% 400%;
   z-index: -1;
   filter: blur(15px);
@@ -192,14 +184,14 @@ body {
 
 /* Text Gradient Utils */
 .text-gradient {
-  background: linear-gradient(135deg, var(--color-foreground) 0%, var(--color-primary) 100%);
+  background: linear-gradient(135deg, var(--color-foreground) 0%, rgb(var(--color-primary)) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-gradient-neon {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
+  background: linear-gradient(135deg, rgb(var(--color-primary)) 0%, rgb(var(--color-secondary)) 50%, rgb(var(--color-accent)) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

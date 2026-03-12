@@ -30,10 +30,12 @@ const Footer = () => {
 
           {/* Divider */}
 
-          {/* Copyright/Info */}
-          <div className="flex flex-col md:flex-row items-center justify-between w-full gap-4 text-foreground/30 text-sm font-medium">
-            <p>© 2026 MK. All rights reserved.</p>
-            <div className="w-full h-px bg-linear-to-r from-transparent via-foreground/10 to-transparent" />
+          <div className="flex flex-col md:flex-row items-center justify-between w-full gap-8 text-foreground/40 text-sm font-medium">
+            <div className="flex flex-col items-center md:items-start gap-1">
+              <p>© {new Date().getFullYear()} Mohammed Kotbi.</p>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-primary/50">Built for the future</p>
+            </div>
+
             <div className="flex gap-4">
               {socialLinks.map((social) => (
                 <a
@@ -41,10 +43,9 @@ const Footer = () => {
                   href={social.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={social.label}
-                  className="w-12 h-12 glass rounded-2xl flex items-center justify-center text-foreground/50 hover:text-primary hover:shadow-neon transition-all hover:-translate-y-1"
+                  className="w-11 h-11 glass rounded-2xl flex items-center justify-center text-foreground/50 hover:text-primary hover:shadow-neon transition-all hover:-translate-y-1"
                 >
-                  <Icon icon={social.icon} width="24" />
+                  <Icon icon={social.icon} width="20" />
                 </a>
               ))}
             </div>
