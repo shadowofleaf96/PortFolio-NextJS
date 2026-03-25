@@ -144,7 +144,7 @@ export const projectsData = [
   },
   {
     id: 14,
-    image: "/images/android.webp",
+    image: "/images/gitdocufy-screen.webp",
     title: "GitDocufy",
     category: "Tooling",
     description:
