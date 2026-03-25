@@ -122,7 +122,7 @@ export const projectsData = [
   },
   {
     id: 12,
-    image: "/images/android.webp",
+    image: "/images/jsnxt-screen.webp",
     title: "JSNxt Boilerplate",
     category: "Open Source",
     description:
